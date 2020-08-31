@@ -1,36 +1,62 @@
-<?php $title = "Medicine Details"; include("./includes/header.php")?>
+<?php 
+require_once("../libraries/connection.php");
+
+$id = $_GET['id'];
+
+$sql = "SELECT * FROM englishmedicineinfo WHERE _id = $id";
+$result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
+
+$row = mysqli_fetch_row($result);
+
+$medicineDetails = "";
+
+$id = $row[0];
+$name = $row[1];
+$usage = $row[2];
+$details = $row[3];
+$image = $row[4];
+
+if(  !file_exists("images/medicine/$image.webp")  ) {
+  $image = "default";
+}
+
+$medicineDetails .= "<div class='row'>
+          <div class='col-md-5 mr-auto'>
+            <div class='border text-center'>
+              <img src='images/medicine/$image.webp' alt='Image'  class='img-fluid p-5'>
+            </div>
+          </div>
+          <div class='col-md-6'>
+            <h2 class='text-black'>$name</h2>
+            <h4>$usage</h4>
+            <p>$details</p>
+            
+            <p><a href='bookMarks.php?id=$id' class='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'>Add To Book Marks</a></p>
+
+          </div>
+        </div>
+";
+
+$title = "Medicine Details"; 
+require_once("./includes/header.php");
+?>
 <body>
 
   <div class="site-wrap">
-  <?php include("./includes/navbar.php")?>
+  <?php require_once("./includes/navbar.php")?>
 
     <div class="bg-light py-3">
       <div class="container">
         <div class="row">
           <div class="col-md-12 mb-0"><a href="index.php">Home</a> <span class="mx-2 mb-0">/</span> <a
-              href="medicine.php">Medicine</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Ibuprofen Tablets, 200mg</strong></div>
+              href="medicine.php">Medicine</a> <span class="mx-2 mb-0">/</span> <strong class="text-black"><?php echo $name;?></strong></div>
         </div>
       </div>
     </div>
 
     <div class="site-section">
       <div class="container">
-        <div class="row">
-          <div class="col-md-5 mr-auto">
-            <div class="border text-center">
-              <img src="images/product_07_large.png" alt="Image" class="img-fluid p-5">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <h2 class="text-black">Ibuprofen Tablets, 200mg</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, vitae, explicabo? Incidunt facere, natus
-              soluta dolores iusto! Molestiae expedita veritatis nesciunt doloremque sint asperiores fuga voluptas,
-              distinctio, aperiam, ratione dolore.</p>
-            
-            <p><a href="bookMarks.php" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Book Marks</a></p>
-
-          </div>
-        </div>
+        <?php echo $medicineDetails; ?>
       </div>
     </div>
 
@@ -58,7 +84,7 @@
         </div>
       </div>
     </div>
-    <?php include("./includes/footer.php")?>
+    <?php require_once("./includes/footer.php")?>
 
   </div>
 

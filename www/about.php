@@ -1,6 +1,6 @@
 <?php
 $title = "About";
-include "./includes/header.php";
+require_once("./includes/header.php");
 // require($_SERVER['DOCUMENT_ROOT']."/university/medicineInfo/includes/header.php");
 ?>
 </head>
@@ -8,7 +8,7 @@ include "./includes/header.php";
 <body>
 
   <div class="site-wrap">
-  <?php include "./includes/navbar.php"?>
+  <?php require_once("./includes/navbar.php")?>
     <div class="site-blocks-cover inner-page" style="background-image: url('images/hero_1.jpg');">
       <div class="container">
         <div class="row">
@@ -195,7 +195,7 @@ include "./includes/header.php";
         </div>
       </div>
     </div>
-    <?php include "./includes/footer.php"?>
+    <?php require_once("./includes/footer.php")?>
 
   </div>
 

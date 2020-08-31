@@ -1,9 +1,45 @@
-<?php $title = "Cart"; include("./includes/header.php")?>
+<?php 
+
+require_once("../libraries/connection.php");
+
+$id = $_GET['id'];
+
+$sql = "SELECT * FROM englishmedicineinfo WHERE _id = $id";
+$result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
+
+$row = mysqli_fetch_row($result);
+
+$favorites = "";
+
+$id = $row[0];
+$name = $row[1];
+$usage = $row[2];
+$image = $row[4];
+
+if(  !file_exists("images/medicine/$image.webp")  ) {
+  $image = "default";
+}
+
+$favorites .= "
+        <tr>
+        <td class='product-thumbnail'>
+          <img src='images/medicine/$image.webp' alt='Image' class='img-fluid'>
+        </td>
+        <td class='product-name'>
+          <h2 class='h5 text-black'>$name</h2>
+        </td>
+        <td><a href='#' class='btn btn-primary height-auto btn-sm'>X</a></td>
+        </tr>
+";
+
+$title = "Book Marks"; 
+require_once("./includes/header.php")
+?>
 
 <body>
 
   <div class="site-wrap">
-  <?php include("./includes/navbar.php")?>
+  <?php require_once("./includes/navbar.php")?>
 
     <div class="bg-light py-3">
       <div class="container">
@@ -25,63 +61,12 @@
                 <thead>
                   <tr>
                     <th class="product-thumbnail">Image</th>
-                    <th class="product-name">Product</th>
-                    <th class="product-price">Price</th>
-                    <th class="product-quantity">Quantity</th>
-                    <th class="product-total">Total</th>
+                    <th class="product-name">Name</th>
                     <th class="product-remove">Remove</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="product-thumbnail">
-                      <img src="images/product_02.png" alt="Image" class="img-fluid">
-                    </td>
-                    <td class="product-name">
-                      <h2 class="h5 text-black">Ibuprofen</h2>
-                    </td>
-                    <td>$55.00</td>
-                    <td>
-                      <div class="input-group mb-3" style="max-width: 120px;">
-                        <div class="input-group-prepend">
-                          <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                        </div>
-                        <input type="text" class="form-control text-center" value="1" placeholder=""
-                          aria-label="Example text with button addon" aria-describedby="button-addon1">
-                        <div class="input-group-append">
-                          <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                        </div>
-                      </div>
-    
-                    </td>
-                    <td>$49.00</td>
-                    <td><a href="#" class="btn btn-primary height-auto btn-sm">X</a></td>
-                  </tr>
-    
-                  <tr>
-                    <td class="product-thumbnail">
-                      <img src="images/product_01.png" alt="Image" class="img-fluid">
-                    </td>
-                    <td class="product-name">
-                      <h2 class="h5 text-black">Bioderma</h2>
-                    </td>
-                    <td>$49.00</td>
-                    <td>
-                      <div class="input-group mb-3" style="max-width: 120px;">
-                        <div class="input-group-prepend">
-                          <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                        </div>
-                        <input type="text" class="form-control text-center" value="1" placeholder=""
-                          aria-label="Example text with button addon" aria-describedby="button-addon1">
-                        <div class="input-group-append">
-                          <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                        </div>
-                      </div>
-    
-                    </td>
-                    <td>$49.00</td>
-                    <td><a href="#" class="btn btn-primary height-auto btn-sm">X</a></td>
-                  </tr>
+                 <?php echo $favorites;?>
                 </tbody>
               </table>
             </div>
@@ -173,7 +158,7 @@
         </div>
       </div>
     </div>
-    <?php include("./includes/footer.php")?>
+    <?php require_once("./includes/footer.php")?>
 
   </div>
 

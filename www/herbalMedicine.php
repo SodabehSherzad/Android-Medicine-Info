@@ -1,8 +1,11 @@
-<?php $title = "Medicine"; include("./includes/header.php")?>
+<?php 
+$title = "Medicine"; 
+require_once("./includes/header.php")
+?>
 <body>
 
   <div class="site-wrap">
-  <?php include("./includes/navbar.php")?>
+  <?php require_once("./includes/navbar.php")?>
 
     <div class="bg-light py-3">
       <div class="container">
@@ -150,7 +153,7 @@
         </div>
       </div>
     </div>
-    <?php include("./includes/footer.php")?>
+    <?php require_once("./includes/footer.php")?>
 
   </div>
 

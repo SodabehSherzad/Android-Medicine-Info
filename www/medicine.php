@@ -1,5 +1,5 @@
 <?php
-require_once "../libraries/connection.php";
+require_once("../libraries/connection.php");
 
 $sql = "SELECT * FROM englishmedicineinfo";
 $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
@@ -7,6 +7,7 @@ $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB'])
 $medicines = "";
 while ($row = mysqli_fetch_assoc($result)) {
     $name = $row['name'];
+    $id = $row['_id'];
     $usage = $row['usage'];
     $image = $row['image'];
 
@@ -15,7 +16,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
 
     $medicines .= "<div class='col-sm-6 col-lg-4 text-center item mb-4'>
-      <a href='medicineDetails.php'> <img src='images/medicine/$image.webp' alt='$name' title='$name' ></a>
+      <a href='medicineDetails.php?id=$id'> <img src='images/medicine/$image.webp' alt='$name' title='$name' width='300' height ='250'></a>
       <h4 class='text-dark'><a href='medicineDetails.php'>$name</a></h4>
       <p class='price'>$usage</p>
     </div>";
@@ -23,13 +24,13 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 
 $title = "Medicine";
-include "./includes/header.php"
+require_once("./includes/header.php")
 ?>
 
 <body>
 
   <div class="site-wrap">
-  <?php include "./includes/navbar.php"?>
+  <?php require_once("./includes/navbar.php")?>
 
     <div class="bg-light py-3">
       <div class="container">
@@ -109,7 +110,7 @@ include "./includes/header.php"
         </div>
       </div>
     </div>
-    <?php include "./includes/footer.php"?>
+    <?php require_once("./includes/footer.php")?>
 
   </div>
 
