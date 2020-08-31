@@ -1,6 +1,6 @@
-<?php 
+<?php
 $title = "About";
-include("./includes/header.php");
+include "./includes/header.php";
 // require($_SERVER['DOCUMENT_ROOT']."/university/medicineInfo/includes/header.php");
 ?>
 </head>
@@ -8,7 +8,7 @@ include("./includes/header.php");
 <body>
 
   <div class="site-wrap">
-  <?php include("./includes/navbar.php")?>
+  <?php include "./includes/navbar.php"?>
     <div class="site-blocks-cover inner-page" style="background-image: url('images/hero_1.jpg');">
       <div class="container">
         <div class="row">
@@ -31,14 +31,14 @@ include("./includes/header.php");
                 <img src="images/bg_1.jpg" alt="Image placeholder" class="img-fluid rounded">
                 <a href="https://vimeo.com/channels/staffpicks/93951774" class="play-button popup-vimeo"><span
                     class="icon-play"></span></a>
-    
+
               </figure>
             </div>
           </div>
           <div class="col-md-1"></div>
           <div class="col-md-5">
-    
-    
+
+
             <div class="site-section-heading pt-3 mb-4">
               <h2 class="text-black">How We Started</h2>
             </div>
@@ -47,13 +47,13 @@ include("./includes/header.php");
               asperiores illum. Atque, in, fuga excepturi corrupti error corporis aliquam unde nostrum quas.</p>
             <p>Accusantium dolor ratione maiores est deleniti nihil? Dignissimos est, sunt nulla illum autem in, quibusdam
               cumque recusandae, laudantium minima repellendus.</p>
-    
+
           </div>
         </div>
       </div>
     </div>
 
-    
+
 
     <div class="site-section bg-light custom-border-bottom" data-aos="fade">
       <div class="container">
@@ -64,13 +64,13 @@ include("./includes/header.php");
                 <img src="images/hero_1.jpg" alt="Image placeholder" class="img-fluid rounded">
                 <a href="https://vimeo.com/channels/staffpicks/93951774" class="play-button popup-vimeo"><span
                     class="icon-play"></span></a>
-    
+
               </figure>
             </div>
           </div>
           <div class="col-md-5 mr-auto">
-    
-    
+
+
             <div class="site-section-heading pt-3 mb-4">
               <h2 class="text-black">We Are Trusted Company</h2>
             </div>
@@ -79,12 +79,12 @@ include("./includes/header.php");
               asperiores illum. Atque, in, fuga excepturi corrupti error corporis aliquam unde nostrum quas.</p>
             <p class="text-black">Accusantium dolor ratione maiores est deleniti nihil? Dignissimos est, sunt nulla illum autem in, quibusdam
               cumque recusandae, laudantium minima repellendus.</p>
-    
+
           </div>
         </div>
       </div>
     </div>
-    
+
     <div class="site-section site-section-sm site-blocks-1 border-0" data-aos="fade">
       <div class="container">
         <div class="row">
@@ -121,7 +121,7 @@ include("./includes/header.php");
         </div>
       </div>
     </div>
-    
+
 
     <div class="site-section bg-light custom-border-bottom" data-aos="fade">
       <div class="container">
@@ -132,7 +132,7 @@ include("./includes/header.php");
         </div>
         <div class="row">
           <div class="col-md-6 col-lg-6 mb-5">
-    
+
             <div class="block-38 text-center">
               <div class="block-38-img">
                 <div class="block-38-header">
@@ -195,7 +195,7 @@ include("./includes/header.php");
         </div>
       </div>
     </div>
-    <?php include("./includes/footer.php")?>
+    <?php include "./includes/footer.php"?>
 
   </div>
 
