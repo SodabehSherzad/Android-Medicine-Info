@@ -1,8 +1,35 @@
-<?php $title = "Medicine"; include("./includes/header.php")?>
+<?php
+require_once "../libraries/connection.php";
+
+$sql = "SELECT * FROM englishmedicineinfo";
+$result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
+
+$medicines = "";
+while ($row = mysqli_fetch_assoc($result)) {
+    $name = $row['name'];
+    $usage = $row['usage'];
+    $image = $row['image'];
+
+    if(  !file_exists("images/medicine/$image.webp")  ) {
+      $image = "default";
+    }
+
+    $medicines .= "<div class='col-sm-6 col-lg-4 text-center item mb-4'>
+      <a href='medicineDetails.php'> <img src='images/medicine/$image.webp' alt='$name' title='$name' ></a>
+      <h4 class='text-dark'><a href='medicineDetails.php'>$name</a></h4>
+      <p class='price'>$usage</p>
+    </div>";
+}
+
+
+$title = "Medicine";
+include "./includes/header.php"
+?>
+
 <body>
 
   <div class="site-wrap">
-  <?php include("./includes/navbar.php")?>
+  <?php include "./includes/navbar.php"?>
 
     <div class="bg-light py-3">
       <div class="container">
@@ -14,7 +41,7 @@
 
     <div class="site-section">
       <div class="container">
-        
+
         <div class="row">
           <div class="col-lg-6">
             <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
@@ -35,77 +62,9 @@
             </div>
           </div>
         </div>
-    
-        <div class="row">
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <span class="tag">Sale</span>
-            <a href="medicineDetails.php"> <img src="images/product_01.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Bioderma</a></h3>
-            <p class="price"><del>95.00</del> &mdash; $55.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="medicineDetails.php"> <img src="images/product_02.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Chanca Piedra</a></h3>
-            <p class="price">$70.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="medicineDetails.php"> <img src="images/product_03.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Umcka Cold Care</a></h3>
-            <p class="price">$120.00</p>
-          </div>
-    
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-    
-            <a href="medicineDetails.php"> <img src="images/product_04.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Cetyl Pure</a></h3>
-            <p class="price"><del>45.00</del> &mdash; $20.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="medicineDetails.php"> <img src="images/product_05.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">CLA Core</a></h3>
-            <p class="price">$38.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <span class="tag">Sale</span>
-            <a href="medicineDetails.php"> <img src="images/product_06.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Poo Pourri</a></h3>
-            <p class="price"><del>$89</del> &mdash; $38.00</p>
-          </div>
 
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <span class="tag">Sale</span>
-            <a href="medicineDetails.php"> <img src="images/product_01.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Bioderma</a></h3>
-            <p class="price"><del>95.00</del> &mdash; $55.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="medicineDetails.php"> <img src="images/product_02.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Chanca Piedra</a></h3>
-            <p class="price">$70.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="medicineDetails.php"> <img ˀsrc="images/product_03.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Umcka Cold Care</a></h3>
-            <p class="price">$120.00</p>
-          </div>
-          
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-          
-            <a href="medicineDetails.php"> <img src="images/product_04.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Cetyl Pure</a></h3>
-            <p class="price"><del>45.00</del> &mdash; $20.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="medicineDetails.php"> <img src="images/product_05.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">CLA Core</a></h3>
-            <p class="price">$38.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <span class="tag">Sale</span>
-            <a href="medicineDetails.php"> <img src="images/product_06.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Poo Pourri</a></h3>
-            <p class="price"><del>$89</del> &mdash; $38.00</p>
-          </div>
+        <div class="row">
+          <?php echo $medicines; ?>
         </div>
         <div class="row mt-5">
           <div class="col-md-12 text-center">
@@ -125,7 +84,7 @@
       </div>
     </div>
 
-    
+
     <div class="site-section bg-secondary bg-image" style="background-image: url('images/bg_2.jpg');">
       <div class="container">
         <div class="row align-items-stretch">
@@ -150,7 +109,7 @@
         </div>
       </div>
     </div>
-    <?php include("./includes/footer.php")?>
+    <?php include "./includes/footer.php"?>
 
   </div>
 
