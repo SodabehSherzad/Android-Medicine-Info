@@ -1,1 +1,0 @@
-<title>Medicine Information &mdash; <?php echo $title;?></title>
