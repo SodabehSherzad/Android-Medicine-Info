@@ -35,6 +35,7 @@ if ($row = mysqli_fetch_row($result)) {
           </div>";
 } else {
     $medicineDetails .= "<h1>Medicine with ID = $id not found!</h1>";
+    $name = "not found!";
 }
 
 $title = "Medicine Details";
@@ -49,7 +50,7 @@ require_once "./includes/header.php";
       <div class="container">
         <div class="row">
           <div class="col-md-12 mb-0"><a href="index.php">Home</a> <span class="mx-2 mb-0">/</span> <a
-              href="medicine.php">Medicine</a> <span class="mx-2 mb-0">/</span> <strong class="text-black"><?php echo isset($name) ? $name : ""; ?></strong></div>
+              href="medicine.php">Medicine</a> <span class="mx-2 mb-0">/</span> <strong class="text-black"><?= $name ?></strong></div>
         </div>
       </div>
     </div>
