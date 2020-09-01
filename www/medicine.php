@@ -1,36 +1,51 @@
 <?php
-require_once("../libraries/connection.php");
+require_once "../helpers/common.php";
+require_once "../libraries/connection.php";
 
-$sql = "SELECT * FROM englishmedicineinfo";
+$rows_per_page = 10;
+$total = mysqli_fetch_row(mysqli_query($GLOBALS['DB'], "SELECT count(_id) AS total FROM englishmedicineinfo"))[0];
+$total_pages = ceil($total / $rows_per_page);
+$current_page = (int) (isset($_GET['page']) ? $_GET['page'] : 1);
+if ($current_page < 1 || $current_page > $total_pages) {
+    $current_page = 1;
+}
+$offset = ($current_page - 1) * $rows_per_page;
+
+$pages = "<li><a href='#'>&lt;</a></li>";
+for ($i = 1; $i <= $total_pages; $i++) {
+    $pages .= "<li><a href='?page=$i'><span>$i</span></a></li>";
+}
+$pages .= "<li><a href='#'>&gt;</a></li>";
+
+$sql = "SELECT * FROM englishmedicineinfo LIMIT $offset, $rows_per_page";
 $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
 
 $medicines = "";
 while ($row = mysqli_fetch_assoc($result)) {
-    $name = $row['name'];
-    $id = $row['_id'];
-    $usage = $row['usage'];
-    $image = $row['image'];
+    $name = clean_data($row['name']);
+    $id = clean_data($row['_id']);
+    $usage = clean_data($row['usage']);
+    $image = clean_data($row['image']);
 
-    if(  !file_exists("images/medicine/$image.webp")  ) {
-      $image = "default";
+    if (!file_exists("images/medicine/$image.webp")) {
+        $image = "default";
     }
 
     $medicines .= "<div class='col-sm-6 col-lg-4 text-center item mb-4'>
       <a href='medicineDetails.php?id=$id'> <img src='images/medicine/$image.webp' alt='$name' title='$name' width='300' height ='250'></a>
-      <h4 class='text-dark'><a href='medicineDetails.php'>$name</a></h4>
+      <h4 class='text-dark'><a href='medicineDetails.php?id=$id'>$name</a></h4>
       <p class='price'>$usage</p>
     </div>";
 }
 
-
 $title = "Medicine";
-require_once("./includes/header.php")
+require_once "./includes/header.php"
 ?>
 
 <body>
 
   <div class="site-wrap">
-  <?php require_once("./includes/navbar.php")?>
+  <?php require_once "./includes/navbar.php"?>
 
     <div class="bg-light py-3">
       <div class="container">
@@ -71,13 +86,7 @@ require_once("./includes/header.php")
           <div class="col-md-12 text-center">
             <div class="site-block-27">
               <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
+                <?php echo $pages; ?>
               </ul>
             </div>
           </div>
@@ -110,7 +119,7 @@ require_once("./includes/header.php")
         </div>
       </div>
     </div>
-    <?php require_once("./includes/footer.php")?>
+    <?php require_once "./includes/footer.php"?>
 
   </div>
 

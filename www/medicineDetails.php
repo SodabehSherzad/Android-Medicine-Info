@@ -1,55 +1,55 @@
-<?php 
-require_once("../libraries/connection.php");
+<?php
+require_once "../helpers/common.php";
+require_once "../libraries/connection.php";
 
-$id = $_GET['id'];
-
-$sql = "SELECT * FROM englishmedicineinfo WHERE _id = $id";
+$id = (int) $_GET['id'];
+$sql = "SELECT * FROM englishmedicineinfo WHERE _id = $id LIMIT 1";
 $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
 
-$row = mysqli_fetch_row($result);
-
 $medicineDetails = "";
+if ($row = mysqli_fetch_row($result)) {
+    $id = clean_data($row[0]);
+    $name = clean_data($row[1]);
+    $usage = clean_data($row[2]);
+    $details = clean_data($row[3]);
+    $image = clean_data($row[4]);
 
-$id = $row[0];
-$name = $row[1];
-$usage = $row[2];
-$details = $row[3];
-$image = $row[4];
+    if (!file_exists("images/medicine/$image.webp")) {
+        $image = "default";
+    }
 
-if(  !file_exists("images/medicine/$image.webp")  ) {
-  $image = "default";
+    $medicineDetails .= "<div class='row'>
+            <div class='col-md-5 mr-auto'>
+              <div class='border text-center'>
+                <img src='images/medicine/$image.webp' alt='Image'  class='img-fluid p-5'>
+              </div>
+            </div>
+            <div class='col-md-6'>
+              <h2 class='text-black'>$name</h2>
+              <h4>$usage</h4>
+              <p>$details</p>
+
+              <p><a href='bookMarks.php?id=$id' class='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'>Add To Book Marks</a></p>
+
+            </div>
+          </div>";
+} else {
+    $medicineDetails .= "<h1>Medicine with ID = $id not found!</h1>";
 }
 
-$medicineDetails .= "<div class='row'>
-          <div class='col-md-5 mr-auto'>
-            <div class='border text-center'>
-              <img src='images/medicine/$image.webp' alt='Image'  class='img-fluid p-5'>
-            </div>
-          </div>
-          <div class='col-md-6'>
-            <h2 class='text-black'>$name</h2>
-            <h4>$usage</h4>
-            <p>$details</p>
-            
-            <p><a href='bookMarks.php?id=$id' class='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'>Add To Book Marks</a></p>
-
-          </div>
-        </div>
-";
-
-$title = "Medicine Details"; 
-require_once("./includes/header.php");
+$title = "Medicine Details";
+require_once "./includes/header.php";
 ?>
 <body>
 
   <div class="site-wrap">
-  <?php require_once("./includes/navbar.php")?>
+  <?php require_once "./includes/navbar.php"?>
 
     <div class="bg-light py-3">
       <div class="container">
         <div class="row">
           <div class="col-md-12 mb-0"><a href="index.php">Home</a> <span class="mx-2 mb-0">/</span> <a
-              href="medicine.php">Medicine</a> <span class="mx-2 mb-0">/</span> <strong class="text-black"><?php echo $name;?></strong></div>
+              href="medicine.php">Medicine</a> <span class="mx-2 mb-0">/</span> <strong class="text-black"><?php echo isset($name) ? $name : ""; ?></strong></div>
         </div>
       </div>
     </div>
@@ -84,7 +84,7 @@ require_once("./includes/header.php");
         </div>
       </div>
     </div>
-    <?php require_once("./includes/footer.php")?>
+    <?php require_once "./includes/footer.php"?>
 
   </div>
 
