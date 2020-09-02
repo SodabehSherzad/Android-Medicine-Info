@@ -1,4 +1,43 @@
 <?php 
+require_once "../helpers/common.php";
+require_once "../libraries/connection.php";
+
+$id = (int) $_GET['id'];
+$sql = "SELECT * FROM englishherbalmedicine WHERE _id = $id LIMIT 1";
+$result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
+
+$medicineDetails = "";
+if ($row = mysqli_fetch_row($result)) {
+    $id = clean_data($row[0]);
+    $name = clean_data($row[1]);
+    $usage = clean_data($row[2]);
+    $details = clean_data($row[3]);
+    $image = clean_data($row[4]);
+
+    if (!file_exists("images/herbalMedicine/$image.webp")) {
+        $image = "default";
+    }
+
+    $medicineDetails .= "<div class='row'>
+            <div class='col-md-5 mr-auto'>
+              <div class='border text-center'>
+                <img src='images/herbalMedicine/$image.webp' alt='Image'  class='img-fluid p-5'>
+              </div>
+            </div>
+            <div class='col-md-6'>
+              <h2 class='text-black'>$name</h2>
+              <h4>$usage</h4>
+              <p>$details</p>
+
+              <p><a href='bookMarks.php?id=$id' class='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'>Add To Book Marks</a></p>
+
+            </div>
+          </div>";
+  } else {
+      $medicineDetails .= "<h1>Herbal Medicine with ID = $id not found!</h1>";
+      $name = "not found!";
+  }
+
 $title = "Herbal Medicine Details"; 
 require_once("./includes/header.php")
 ?>
@@ -11,29 +50,14 @@ require_once("./includes/header.php")
       <div class="container">
         <div class="row">
           <div class="col-md-12 mb-0"><a href="index.php">Home</a> <span class="mx-2 mb-0">/</span> <a
-              href="medicine.php">Herbal Medicine</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Ibuprofen Tablets, 200mg</strong></div>
+              href="herbalMedicine.php">Herbal Medicine</a> <span class="mx-2 mb-0">/</span> <strong class="text-black"><?php echo substr($name, 0, 6)?></strong></div>
         </div>
       </div>
     </div>
 
     <div class="site-section">
       <div class="container">
-        <div class="row">
-          <div class="col-md-5 mr-auto">
-            <div class="border text-center">
-              <img src="images/product_07_large.png" alt="Image" class="img-fluid p-5">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <h2 class="text-black">Ibuprofen Tablets, 200mg</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, vitae, explicabo? Incidunt facere, natus
-              soluta dolores iusto! Molestiae expedita veritatis nesciunt doloremque sint asperiores fuga voluptas,
-              distinctio, aperiam, ratione dolore.</p>
-           
-            <p><a href="bookMarks.php" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Book Marks</a></p>
-
-          </div>
-        </div>
+        <?php echo $medicineDetails; ?>
       </div>
     </div>
 

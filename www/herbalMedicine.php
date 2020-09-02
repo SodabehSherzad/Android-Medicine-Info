@@ -1,7 +1,51 @@
 <?php 
-$title = "Medicine"; 
-require_once("./includes/header.php")
+require_once "../helpers/common.php";
+require_once "../libraries/connection.php";
+
+$rows_per_page = 10;
+$total = mysqli_fetch_row(mysqli_query($GLOBALS['DB'], "SELECT count(_id) AS total FROM englishherbalmedicine"))[0];
+$total_pages = ceil($total / $rows_per_page);
+$current_page = (int) (isset($_GET['page']) ? $_GET['page'] : 1);
+if ($current_page < 1 || $current_page > $total_pages) {
+    $current_page = 1;
+}
+$offset = ($current_page - 1) * $rows_per_page;
+
+$pages = "<li><a href='#'>&lt;</a></li>";
+for ($i = 1; $i <= $total_pages; $i++) {
+    $pages .= "<li><a href='?page=$i'><span>$i</span></a></li>";
+}
+$pages .= "<li><a href='#'>&gt;</a></li>";
+
+$sql = "SELECT * FROM englishherbalmedicine LIMIT $offset, $rows_per_page";
+$result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
+
+$medicines = "";
+while ($row = mysqli_fetch_assoc($result)) {
+    $name = clean_data($row['name']);
+    $id = clean_data($row['_id']);
+    $usage = clean_data($row['usage']);
+    $image = clean_data($row['img']);
+
+    if(strlen($name) >= 30){
+      $name = substr($name, 0, 40);
+    }
+
+    if (!file_exists("images/herbalMedicine/$image.webp")) {
+        $image = "default";
+    }
+
+    $medicines .= "<div class='col-sm-6 col-lg-4 text-center item mb-4'>
+      <a href='herbalMedicineDetails.php?id=$id'> <img src='images/herbalMedicine/$image.webp' alt='$name' title='$name' width='300' height ='250'></a>
+      <h4 class='text-dark'><a href='herbalMedicineDetails.php?id=$id'>$name</a></h4>
+      <p class='price'>$usage</p>
+    </div>";
+}
+
+$title = "Herbal Medicine";
+require_once "./includes/header.php"
 ?>
+
 <body>
 
   <div class="site-wrap">
@@ -40,99 +84,18 @@ require_once("./includes/header.php")
         </div>
     
         <div class="row">
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <span class="tag">Sale</span>
-            <a href="medicineDetails.php"> <img src="images/product_01.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Bioderma</a></h3>
-            <p class="price"><del>95.00</del> &mdash; $55.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="medicineDetails.php"> <img src="images/product_02.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Chanca Piedra</a></h3>
-            <p class="price">$70.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="medicineDetails.php"> <img src="images/product_03.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Umcka Cold Care</a></h3>
-            <p class="price">$120.00</p>
-          </div>
-    
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-    
-            <a href="medicineDetails.php"> <img src="images/product_04.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Cetyl Pure</a></h3>
-            <p class="price"><del>45.00</del> &mdash; $20.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="medicineDetails.php"> <img src="images/product_05.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">CLA Core</a></h3>
-            <p class="price">$38.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <span class="tag">Sale</span>
-            <a href="medicineDetails.php"> <img src="images/product_06.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Poo Pourri</a></h3>
-            <p class="price"><del>$89</del> &mdash; $38.00</p>
-          </div>
-
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <span class="tag">Sale</span>
-            <a href="medicineDetails.php"> <img src="images/product_01.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Bioderma</a></h3>
-            <p class="price"><del>95.00</del> &mdash; $55.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="medicineDetails.php"> <img src="images/product_02.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Chanca Piedra</a></h3>
-            <p class="price">$70.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="medicineDetails.php"> <img ˀsrc="images/product_03.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Umcka Cold Care</a></h3>
-            <p class="price">$120.00</p>
-          </div>
-          
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-          
-            <a href="medicineDetails.php"> <img src="images/product_04.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Cetyl Pure</a></h3>
-            <p class="price"><del>45.00</del> &mdash; $20.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <a href="medicineDetails.php"> <img src="images/product_05.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">CLA Core</a></h3>
-            <p class="price">$38.00</p>
-          </div>
-          <div class="col-sm-6 col-lg-4 text-center item mb-4">
-            <span class="tag">Sale</span>
-            <a href="medicineDetails.php"> <img src="images/product_06.png" alt="Image"></a>
-            <h3 class="text-dark"><a href="medicineDetails.php">Poo Pourri</a></h3>
-            <p class="price"><del>$89</del> &mdash; $38.00</p>
-          </div>
+          <?php echo $medicines; ?>
         </div>
         <div class="row mt-5">
           <div class="col-md-12 text-center">
             <div class="site-block-27">
               <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
+                <?php echo $pages; ?>
               </ul>
             </div>
           </div>
         </div>
+
       </div>
     </div>
 
