@@ -1,23 +1,19 @@
 <?php
 require_once "../helpers/common.php";
 require_once "../libraries/connection.php";
+require_once "../libraries/Paginator.php";
 
-$rows_per_page = 10;
+$rows_per_page = 2;
+define('ROWS_PER_PAGE', 10);
 $total = mysqli_fetch_row(mysqli_query($GLOBALS['DB'], "SELECT count(_id) AS total FROM englishmedicineinfo"))[0];
-$total_pages = ceil($total / $rows_per_page);
-$current_page = (int) (isset($_GET['page']) ? $_GET['page'] : 1);
-if ($current_page < 1 || $current_page > $total_pages) {
-    $current_page = 1;
-}
-$offset = ($current_page - 1) * $rows_per_page;
+$current_page = (isset($_GET['page']) && $_GET['page'] > 0) ? (int) $_GET['page'] : 1;
+$urlPattern = '?page=(:num)';
+$offset = ($current_page - 1) * ROWS_PER_PAGE;
+$paginator = new Paginator($total, ROWS_PER_PAGE, $current_page, $urlPattern);
+$paginator->setNextText("");
+$paginator->setPreviousText("");
 
-$pages = "<li><a href='#'>&lt;</a></li>";
-for ($i = 1; $i <= $total_pages; $i++) {
-    $pages .= "<li><a href='?page=$i'><span>$i</span></a></li>";
-}
-$pages .= "<li><a href='#'>&gt;</a></li>";
-
-$sql = "SELECT * FROM englishmedicineinfo LIMIT $offset, $rows_per_page";
+$sql = "SELECT * FROM englishmedicineinfo LIMIT $offset, " . ROWS_PER_PAGE;
 $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
 
 $medicines = "";
@@ -85,9 +81,7 @@ require_once "./includes/header.php"
         <div class="row mt-5">
           <div class="col-md-12 text-center">
             <div class="site-block-27">
-              <ul>
-                <?php echo $pages; ?>
-              </ul>
+                <?php echo $paginator; ?>
             </div>
           </div>
         </div>
