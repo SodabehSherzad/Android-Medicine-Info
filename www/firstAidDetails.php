@@ -12,7 +12,8 @@ if ($row = mysqli_fetch_row($result)) {
     $id = clean_data($row[0]);
     $name = clean_data($row[1]);
     $details = clean_data($row[2]);
-    $image = clean_data($row[4]);
+    $logo = clean_data($row[4]);
+    $image = clean_data($row[3]);
 
     if (!file_exists("images/firstAid/$image.webp")) {
         $image = "default";
@@ -22,6 +23,9 @@ if ($row = mysqli_fetch_row($result)) {
             <div class='col-md-5 mr-auto'>
               <div class='border text-center'>
                 <img src='images/firstAid/$image.webp' alt='Image'  class='img-fluid p-5'>
+              </div>
+              <div class='border text-center'>
+                <img src='images/firstAid/$logo.webp' alt='Image'  class='img-fluid p-5'>
               </div>
             </div>
             <div class='col-md-6'>

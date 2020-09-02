@@ -1,21 +1,17 @@
 <?php 
 require_once "../helpers/common.php";
 require_once "../libraries/connection.php";
+require_once "../libraries/Paginator.php";
 
-$rows_per_page = 10;
+$rows_per_page = 9;
+define('ROWS_PER_PAGE', 9);
 $total = mysqli_fetch_row(mysqli_query($GLOBALS['DB'], "SELECT count(_id) AS total FROM englishherbalmedicine"))[0];
-$total_pages = ceil($total / $rows_per_page);
-$current_page = (int) (isset($_GET['page']) ? $_GET['page'] : 1);
-if ($current_page < 1 || $current_page > $total_pages) {
-    $current_page = 1;
-}
-$offset = ($current_page - 1) * $rows_per_page;
-
-$pages = "<li><a href='#'>&lt;</a></li>";
-for ($i = 1; $i <= $total_pages; $i++) {
-    $pages .= "<li><a href='?page=$i'><span>$i</span></a></li>";
-}
-$pages .= "<li><a href='#'>&gt;</a></li>";
+$current_page = (isset($_GET['page']) && $_GET['page'] > 0) ? (int) $_GET['page'] : 1;
+$urlPattern = '?page=(:num)';
+$offset = ($current_page - 1) * ROWS_PER_PAGE;
+$paginator = new Paginator($total, ROWS_PER_PAGE, $current_page, $urlPattern);
+$paginator->setNextText("");
+$paginator->setPreviousText("");
 
 $sql = "SELECT * FROM englishherbalmedicine LIMIT $offset, $rows_per_page";
 $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
@@ -36,7 +32,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
 
     $medicines .= "<div class='col-sm-6 col-lg-4 text-center item mb-4'>
-      <a href='herbalMedicineDetails.php?id=$id'> <img src='images/herbalMedicine/$image.webp' alt='$name' title='$name' width='300' height ='250'></a>
+      <a href='herbalMedicineDetails.php?id=$id'> <img src='images/herbalMedicine/$image.webp' alt='$name' title='$name' width='250' height ='250'></a>
       <h4 class='text-dark'><a href='herbalMedicineDetails.php?id=$id'>$name</a></h4>
       <p class='price'>$usage</p>
     </div>";
@@ -62,7 +58,7 @@ require_once "./includes/header.php"
     <div class="site-section">
       <div class="container">
         
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-lg-6">
             <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
             <div id="slider-range" class="border-primary"></div>
@@ -81,7 +77,7 @@ require_once "./includes/header.php"
               <a class="dropdown-item" href="#">Price, high to low</a>
             </div>
           </div>
-        </div>
+        </div> -->
     
         <div class="row">
           <?php echo $medicines; ?>
@@ -89,9 +85,7 @@ require_once "./includes/header.php"
         <div class="row mt-5">
           <div class="col-md-12 text-center">
             <div class="site-block-27">
-              <ul>
-                <?php echo $pages; ?>
-              </ul>
+                <?php echo $paginator; ?>
             </div>
           </div>
         </div>

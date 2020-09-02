@@ -20,8 +20,12 @@
             <nav class="site-navigation text-right text-md-center" role="navigation">
               <ul class="site-menu js-clone-nav d-none d-lg-block">
                 <li class="active"><a href="index.php">Home</a></li>
-                <li><a href="medicine.php">Common Medicine</a></li>
-                <li><a href="herbalmedicine.php">Herbal Medicine</a></li>
+                <li class="has-children"><a href="#">Medicines</a>
+                  <ul class="dropdown">
+                    <li><a href="medicine.php">Common</a></li>
+                    <li><a href="herbalMedicine.php">Herbal</a></li>
+                  </ul>
+                </li>
                 <li><a href="firstaid.php">First Aid</a></li>
                 <li><a href="about.php">About</a></li>
                 <li><a href="contact.php">Contact</a></li>
@@ -30,12 +34,9 @@
           </div>
           <div class="icons">
             <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-            <a href="cart.php" class="icons-btn d-inline-block bag">
-              <span class="icon-shopping-bag"></span>
-              <span class="number">2</span>
-            </a>
-            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
-                class="icon-menu"></span></a>
+            <a href="login.php">
+              <span class="number">Login</span>
+            </a> 
           </div>
         </div>
       </div>

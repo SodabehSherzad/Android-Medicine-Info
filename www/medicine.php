@@ -3,8 +3,8 @@ require_once "../helpers/common.php";
 require_once "../libraries/connection.php";
 require_once "../libraries/Paginator.php";
 
-$rows_per_page = 2;
-define('ROWS_PER_PAGE', 10);
+$rows_per_page = 9;
+define('ROWS_PER_PAGE', 9);
 $total = mysqli_fetch_row(mysqli_query($GLOBALS['DB'], "SELECT count(_id) AS total FROM englishmedicineinfo"))[0];
 $current_page = (isset($_GET['page']) && $_GET['page'] > 0) ? (int) $_GET['page'] : 1;
 $urlPattern = '?page=(:num)';
@@ -28,7 +28,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
 
     $medicines .= "<div class='col-sm-6 col-lg-4 text-center item mb-4'>
-      <a href='medicineDetails.php?id=$id'> <img src='images/medicine/$image.webp' alt='$name' title='$name' width='300' height ='250'></a>
+      <a href='medicineDetails.php?id=$id'> <img src='images/medicine/$image.webp' alt='$name' title='$name' width='250' height ='250'></a>
       <h4 class='text-dark'><a href='medicineDetails.php?id=$id'>$name</a></h4>
       <p class='price'>$usage</p>
     </div>";
@@ -46,7 +46,7 @@ require_once "./includes/header.php"
     <div class="bg-light py-3">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 mb-0"><a href="index.php">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Medicine</strong></div>
+          <div class="col-md-12 mb-0"><a href="index.php">Home</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">Common Medicine</strong></div>
         </div>
       </div>
     </div>
@@ -54,7 +54,7 @@ require_once "./includes/header.php"
     <div class="site-section">
       <div class="container">
 
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-lg-6">
             <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
             <div id="slider-range" class="border-primary"></div>
@@ -73,7 +73,7 @@ require_once "./includes/header.php"
               <a class="dropdown-item" href="#">Price, high to low</a>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="row">
           <?php echo $medicines; ?>
