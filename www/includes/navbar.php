@@ -1,3 +1,18 @@
+<?php
+require_once "../helpers/common.php";
+require_once "../libraries/connection.php";
+$sql = "SELECT * FROM categories";
+$result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
+
+$categories = "";
+while ($row = mysqli_fetch_assoc($result)) {
+    $id = clean_data($row['id']);
+    $name = clean_data($row['name_' . $language]);
+
+    $categories .= "<li><a href='medicine.php?category=$id'>$name</a></li>";
+}
+
+?>
 <div class="site-navbar py-2">
 
       <div class="search-wrap">
@@ -22,8 +37,7 @@
                 <li class="active"><a href="index.php">Home</a></li>
                 <li class="has-children"><a href="#">Medicines</a>
                   <ul class="dropdown">
-                    <li><a href="medicine.php">Common</a></li>
-                    <li><a href="herbalMedicine.php">Herbal</a></li>
+                    <?= $categories; ?>
                   </ul>
                 </li>
                 <li><a href="firstaid.php">First Aid</a></li>
@@ -36,7 +50,7 @@
             <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
             <a href="login.php">
               <span class="number">Login</span>
-            </a> 
+            </a>
           </div>
         </div>
       </div>

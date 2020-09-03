@@ -3,9 +3,12 @@ require_once "../helpers/common.php";
 require_once "../libraries/connection.php";
 require_once "../libraries/Paginator.php";
 
-$rows_per_page = 9;
+$category = (isset($_GET['category']) && $_GET['category'] > 0) ? (int) $_GET['category'] : 1;
+
+$title = "Medicine";
+
 define('ROWS_PER_PAGE', 9);
-$total = mysqli_fetch_row(mysqli_query($GLOBALS['DB'], "SELECT count(_id) AS total FROM englishmedicineinfo"))[0];
+$total = mysqli_fetch_row(mysqli_query($GLOBALS['DB'], "SELECT count(id) AS total FROM medicines_$language WHERE category_id = $category"))[0];
 $current_page = (isset($_GET['page']) && $_GET['page'] > 0) ? (int) $_GET['page'] : 1;
 $urlPattern = '?page=(:num)';
 $offset = ($current_page - 1) * ROWS_PER_PAGE;
@@ -13,13 +16,13 @@ $paginator = new Paginator($total, ROWS_PER_PAGE, $current_page, $urlPattern);
 $paginator->setNextText("");
 $paginator->setPreviousText("");
 
-$sql = "SELECT * FROM englishmedicineinfo LIMIT $offset, " . ROWS_PER_PAGE;
+$sql = "SELECT * FROM medicines_$language WHERE category_id = $category  LIMIT $offset, " . ROWS_PER_PAGE;
 $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
 
 $medicines = "";
 while ($row = mysqli_fetch_assoc($result)) {
+    $id = clean_data($row['id']);
     $name = clean_data($row['name']);
-    $id = clean_data($row['_id']);
     $usage = clean_data($row['usage']);
     $image = clean_data($row['image']);
 
@@ -34,7 +37,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     </div>";
 }
 
-$title = "Medicine";
 require_once "./includes/header.php"
 ?>
 

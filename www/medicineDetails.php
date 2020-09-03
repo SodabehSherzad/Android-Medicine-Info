@@ -3,7 +3,7 @@ require_once "../helpers/common.php";
 require_once "../libraries/connection.php";
 
 $id = (int) $_GET['id'];
-$sql = "SELECT * FROM englishmedicineinfo WHERE _id = $id LIMIT 1";
+$sql = "SELECT * FROM medicines_$language WHERE id = $id LIMIT 1";
 $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
 
 $medicineDetails = "";
