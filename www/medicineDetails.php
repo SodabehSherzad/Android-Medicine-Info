@@ -28,8 +28,8 @@ if ($row = mysqli_fetch_row($result)) {
               <h2 class='text-black'>$name</h2>
               <h4>$usage</h4>
               <p>$details</p>
-
               <p><a href='bookMarks.php?id=$id' class='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'>Add To Book Marks</a></p>
+              <p><a href='#' onclick=\"textToSpeech('$details')\" class='btn btn-sm btn-primary'>Voice</a></p>
 
             </div>
           </div>";
