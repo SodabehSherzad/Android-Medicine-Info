@@ -1,4 +1,5 @@
 <?php
+
 require_once "../helpers/common.php";
 require_once "../libraries/connection.php";
 $sql = "SELECT * FROM categories";
@@ -28,13 +29,13 @@ while ($row = mysqli_fetch_assoc($result)) {
         <div class="d-flex align-items-center justify-content-between">
           <div class="logo">
             <div class="site-logo">
-              <a href="index.php" class="js-logo-clone">Medicine Info</a>
+              <a href="index.php" class="js-logo-clone"><?= $siteTitle; ?></a>
             </div>
           </div>
           <div class="main-nav d-none d-lg-block">
             <nav class="site-navigation text-right text-md-center" role="navigation">
               <ul class="site-menu js-clone-nav d-none d-lg-block">
-                <li class="active"><a href="index.php">Home</a></li>
+                <li class="active"><a href="index.php"><?= $homePage; ?></a></li>
                 <li class="has-children"><a href="#">Medicines</a>
                   <ul class="dropdown">
                     <?= $categories; ?>
@@ -43,6 +44,14 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <li><a href="firstaid.php">First Aid</a></li>
                 <li><a href="about.php">About</a></li>
                 <li><a href="contact.php">Contact</a></li>
+
+                <li class="has-children"><a href="#">Language</a>
+                  <ul class="dropdown">
+                    <li><a href="" onclick="changeLanguage('en')">English</a></li>
+                    <li><a href="" onclick="changeLanguage('fa')">فارسی</a></li>
+                  </ul>
+                </li>
+
               </ul>
             </nav>
           </div>
