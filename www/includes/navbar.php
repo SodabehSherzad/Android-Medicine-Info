@@ -36,16 +36,16 @@ while ($row = mysqli_fetch_assoc($result)) {
             <nav class="site-navigation text-right text-md-center" role="navigation">
               <ul class="site-menu js-clone-nav d-none d-lg-block">
                 <li class="active"><a href="index.php"><?= $homePage; ?></a></li>
-                <li class="has-children"><a href="#">Medicines</a>
+                <li class="has-children"><a href="#"><?= $medicinePage; ?></a>
                   <ul class="dropdown">
                     <?= $categories; ?>
                   </ul>
                 </li>
-                <li><a href="firstaid.php">First Aid</a></li>
-                <li><a href="about.php">About</a></li>
-                <li><a href="contact.php">Contact</a></li>
+                <li><a href="firstaid.php"><?= $firstaidPage?></a></li>
+                <li><a href="about.php"><?= $aboutPage?></a></li>
+                <li><a href="contact.php"><?= $contactPage?></a></li>
 
-                <li class="has-children"><a href="#">Language</a>
+                <li class="has-children"><a href="#"><?= $lang?></a>
                   <ul class="dropdown">
                     <li><a href="" onclick="changeLanguage('en')">English</a></li>
                     <li><a href="" onclick="changeLanguage('fa')">فارسی</a></li>
@@ -58,7 +58,7 @@ while ($row = mysqli_fetch_assoc($result)) {
           <div class="icons">
             <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
             <a href="login.php">
-              <span class="number">Login</span>
+              <span class="number"><?= $loginPage?></span>
             </a>
           </div>
         </div>

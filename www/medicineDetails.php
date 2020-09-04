@@ -28,14 +28,15 @@ if ($row = mysqli_fetch_row($result)) {
               <h2 class='text-black'>$name</h2>
               <h4>$usage</h4>
               <p>$details</p>
-              <p><a href='bookMarks.php?id=$id' class='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'>Add To Book Marks</a></p>
-              <p><a href='#' onclick=\"textToSpeech('$details')\" class='btn btn-sm btn-primary'>Voice</a></p>
+              <p><a href='bookMarks.php?id=$id' class='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'>$add</a></p>
+              <p style='display: inline-block'><a href='#' onclick=\"textToSpeech('$details')\" class='btn btn-sm btn-primary'>Play Voice</a></p>
+              <p style='display: inline-block'><a href='#' onclick=\"stopSpeech()\" class='btn btn-sm btn-primary'>Stop Voice</a></p>
 
             </div>
           </div>";
 } else {
-    $medicineDetails .= "<h1>Medicine with ID = $id not found!</h1>";
-    $name = "not found!";
+    $medicineDetails .= "<h1>Medicine with ID = $id Not Found!</h1>";
+    $name = "Not Found!";
 }
 
 $title = "Medicine Details";
@@ -49,8 +50,8 @@ require_once "./includes/header.php";
     <div class="bg-light py-3">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 mb-0"><a href="index.php">Home</a> <span class="mx-2 mb-0">/</span> <a
-              href="medicine.php">Medicine</a> <span class="mx-2 mb-0">/</span> <strong class="text-black"><?= $name ?></strong></div>
+          <div class="col-md-12 mb-0"><a href="index.php"><?= $homePage?></a> <span class="mx-2 mb-0">/</span> <a
+              href="medicine.php"> Medicine</a> <span class="mx-2 mb-0">/</span> <strong class="text-black"><?= $name ?></strong></div>
         </div>
       </div>
     </div>
@@ -61,28 +62,4 @@ require_once "./includes/header.php";
       </div>
     </div>
 
-    <div class="site-section bg-secondary bg-image" style="background-image: url('images/bg_2.jpg');">
-      <div class="container">
-        <div class="row align-items-stretch">
-          <div class="col-lg-6 mb-5 mb-lg-0">
-            <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/bg_1.jpg');">
-              <div class="banner-1-inner align-self-center">
-                <h2>Pharma Products</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
-                </p>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-6 mb-5 mb-lg-0">
-            <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/bg_2.jpg');">
-              <div class="banner-1-inner ml-auto  align-self-center">
-                <h2>Rated by Experts</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
-                </p>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
     <?php require_once "./includes/footer.php"?>

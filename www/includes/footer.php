@@ -70,14 +70,15 @@
 			document.cookie="lang=" + lang + ";expires="+ expiresDate.toGMTString();
     }
 
+
     function textToSpeech(input) {
       if ('speechSynthesis' in window) {
       // Speech Synthesis supported 🎉
-      var msg = new SpeechSynthesisUtterance();
+      let msg = new SpeechSynthesisUtterance();
       msg.lang = 'en';
       msg.volume = 1; // From 0 to 1
-      msg.rate = 1; // From 0.1 to 10
-      msg.pitch = 2; // From 0 to 2
+      msg.rate = 0.5; // From 0.1 to 10
+      msg.pitch = 1; // From 0 to 2
       msg.text = input;
       window.speechSynthesis.speak(msg);
 
@@ -86,6 +87,11 @@
         alert("Sorry, your browser doesn't support text to speech!");
       }
     }
+
+    function stopSpeech() {
+      window.speechSynthesis.cancel();
+    }
+  
 
 </script>
 
