@@ -60,7 +60,9 @@ while ($row = mysqli_fetch_assoc($result)) {
             <a href="login.php">
               <span class="number"><?= $loginPage?></span>
             </a>
+           
           </div>
+
         </div>
       </div>
     </div>
