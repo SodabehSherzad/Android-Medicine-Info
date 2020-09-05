@@ -14,6 +14,7 @@ if ($row = mysqli_fetch_row($result)) {
     $id = clean_data($row[0]);
     $name .= clean_data($row[1]);
     $details = clean_data($row[2]);
+    $details2 = str_replace(array("\r\n", "\n", "'"), array('', '', ''), $details);
     $logo = clean_data($row[4]);
     $image = clean_data($row[3]);
 
@@ -35,7 +36,7 @@ if ($row = mysqli_fetch_row($result)) {
               <p>$details</p>
 
               <p><a href='bookMarks.php?id=$id' class='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'>$add</a></p>
-              <p style='display: inline-block'><a href='#' onclick=\"textToSpeech('$details')\" class='btn btn-sm btn-primary'>Play Voice</a></p>
+              <p style='display: inline-block'><a href='#' onclick=\"textToSpeech('$details2')\" class='btn btn-sm btn-primary'>Play Voice</a></p>
               <p style='display: inline-block'><a href='#' onclick=\"stopSpeech()\" class='btn btn-sm btn-primary'>Stop Voice</a></p>
 
             </div>

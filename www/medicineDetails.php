@@ -12,6 +12,7 @@ if ($row = mysqli_fetch_row($result)) {
     $name = clean_data($row[1]);
     $usage = clean_data($row[2]);
     $details = clean_data($row[3]);
+    $details2 = str_replace(array("\r\n", "\n", "'"), array('', '', ''), $details);
     $image = clean_data($row[4]);
 
     if (!file_exists("images/medicine/$image.webp")) {
@@ -29,7 +30,7 @@ if ($row = mysqli_fetch_row($result)) {
               <h4>$usage</h4>
               <p>$details</p>
               <p><a href='bookMarks.php?id=$id' class='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'>$add</a></p>
-              <p style='display: inline-block'><a href='#' onclick=\"textToSpeech('$details')\" class='btn btn-sm btn-primary'>Play Voice</a></p>
+              <p style='display: inline-block'><a href='#' onclick=\"textToSpeech('$details2')\" class='btn btn-sm btn-primary'>Play Voice</a></p>
               <p style='display: inline-block'><a href='#' onclick=\"stopSpeech()\" class='btn btn-sm btn-primary'>Stop Voice</a></p>
 
             </div>
