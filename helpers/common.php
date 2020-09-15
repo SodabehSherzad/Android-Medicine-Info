@@ -11,5 +11,5 @@ if (isset($_COOKIE['lang'])) {
     include("../lang/$language.php");
 } else {
     $language = "en";
-    include("../lang/en.php");
+    include("../lang/$language.php");
 }

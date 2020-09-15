@@ -57,7 +57,7 @@ while ($row = mysqli_fetch_assoc($result)) {
           </div>
           <div class="icons">
             <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-            <a href="login.php">
+            <a href="signIn.php">
               <span class="number"><?= $loginPage?></span>
             </a>
            

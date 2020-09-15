@@ -12,7 +12,7 @@ require_once("./includes/header.php")
         <div class="row">
           <div class="col-md-12 mb-0">
             <a href="index.php">Home</a> <span class="mx-2 mb-0">/</span>
-            <strong class="text-black">Login</strong>
+            <strong class="text-black">Sign in</strong>
           </div>
         </div>
       </div>
@@ -20,13 +20,20 @@ require_once("./includes/header.php")
 
     <div class="site-section">
       <div class="container">
-        <div class="row">
+        <div class="row mb-5">
           <div class="col-md-12">
-            <h2 class="h3 mb-5 text-black">Login Page</h2>
+            <div class="bg-light rounded p-3">
+              <p class="mb-0">Create Account <a href="signUp.php" class="d-inline-block">Click here</a> to Sign up</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-9">
+            <h2 class="h3 mb-5 text-black">Sign in Page</h2>
           </div>
           <div class="col-md-12">
     
-            <form action="login.php" method="post">
+            <form action="signIn.php" method="post">
     
               <div class="p-3 p-lg-5 border">
                 <div class="form-group row">
@@ -43,11 +50,13 @@ require_once("./includes/header.php")
                 </div>
                 <div class="form-group row">
                   <div class="col-lg-6">
-                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Login">
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Sign In">
                   </div>
                 </div>
               </div>
+             
             </form>
+            
           </div>
           
         </div>

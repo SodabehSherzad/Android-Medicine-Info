@@ -1,4 +1,32 @@
 <?php 
+
+require_once "../helpers/common.php";
+require_once "../lang/$language.php";
+require_once "../libraries/connection.php";
+
+function read_data($result){
+         
+  $medicines = "";
+  while ($row = mysqli_fetch_assoc($result)) {
+    $id = clean_data($row['id']);
+    $name = clean_data($row['name']);
+    $usage = clean_data($row['usage']);
+    $image = clean_data($row['image']);
+  
+    if (!file_exists("images/medicine/$image.webp")) {
+        $image = "image";
+    }
+  
+    $medicines .= " <div class='text-center item mb-4'>
+                    <a href='medicine.php'> <img src='images/medicine/$image.webp' alt='Image' width='70' height='200'></a>
+                    <h3 class='text-dark'><a href='medicine.php'>$name</a></h3>
+                    <p class='price'>$usage</p>
+                  </div>";
+  }
+
+  return $medicines;
+}
+
 $title = "Home"; 
 require_once("./includes/header.php")
 ?>
@@ -66,43 +94,26 @@ require_once("./includes/header.php")
       <div class="container">
         <div class="row">
           <div class="title-section text-center col-12">
-            <h2 class="text-uppercase">Common Medicine</h2>
+            <h2 class="text-uppercase">
+            <?php $tit = ($language == "en")?"Common ".$medicinePage: $medicinePage."ی رایج";
+              echo $tit;
+            ?></h2>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12 block-3 products-wrap">
             <div class="nonloop-block-3 owl-carousel">
-
-              <div class="text-center item mb-4">
-                <a href="medicineDetails.php"> <img src="images/product_03.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="medicineDetails.php">Umcka Cold Care</a></h3>
-                <p class="price">$120.00</p>
-              </div>
-
-              <div class="text-center item mb-4">
-                <a href="medicineDetails.php"> <img src="images/product_01.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="medicineDetails.php">Umcka Cold Care</a></h3>
-                <p class="price">$120.00</p>
-              </div>
-
-              <div class="text-center item mb-4">
-                <a href="medicineDetails.php"> <img src="images/product_02.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="medicineDetails.php">Umcka Cold Care</a></h3>
-                <p class="price">$120.00</p>
-              </div>
-
-              <div class="text-center item mb-4">
-                <a href="medicineDetails.php"> <img src="images/product_04.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="medicineDetails.php">Umcka Cold Care</a></h3>
-                <p class="price">$120.00</p>
-              </div>
-
+            <?php
+              $sql = "SELECT * FROM medicines_$language WHERE category_id = 1 LIMIT 4";
+              $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
+              echo read_data($result);
+            ?>
             </div>
           </div>
         </div>
         <div class="row mt-5">
           <div class="col-12 text-center">
-            <a href="medicine.php" class="btn btn-primary px-4 py-3">View All Products</a>
+            <a href="medicine.php" class="btn btn-primary px-4 py-3"><?php echo $btn;?></a>
           </div>
         </div>
       </div>
@@ -112,43 +123,24 @@ require_once("./includes/header.php")
       <div class="container">
         <div class="row">
           <div class="title-section text-center col-12">
-            <h2 class="text-uppercase">Herbal Medicine</h2>
+            <h2 class="text-uppercase"><?php $tit = ($language == "en")?"Herbal ".$medicinePage: $medicinePage."ی گیاهی";
+              echo $tit;?></h2>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12 block-3 products-wrap">
             <div class="nonloop-block-3 owl-carousel">
-
-              <div class="text-center item mb-4">
-                <a href="herbalMedicineDetails.php"> <img src="images/product_03.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="herbalMedicineDetails.php">Umcka Cold Care</a></h3>
-                <p class="price">$120.00</p>
-              </div>
-
-              <div class="text-center item mb-4">
-                <a href="herbalMedicineDetails.php"> <img src="images/product_01.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="herbalMedicineDetails.php">Umcka Cold Care</a></h3>
-                <p class="price">$120.00</p>
-              </div>
-
-              <div class="text-center item mb-4">
-                <a href="herbalMedicineDetails.php"> <img src="images/product_02.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="herbalMedicineDetails.php">Umcka Cold Care</a></h3>
-                <p class="price">$120.00</p>
-              </div>
-
-              <div class="text-center item mb-4">
-                <a href="herbalMedicineDetails.php"> <img src="images/product_04.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="herbalMedicineDetails.php">Umcka Cold Care</a></h3>
-                <p class="price">$120.00</p>
-              </div>
-
+            <?php
+              $sql = "SELECT * FROM medicines_$language WHERE category_id = 2 LIMIT 4";
+              $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
+              echo read_data($result);
+            ?>
             </div>
           </div>
         </div>
         <div class="row mt-5">
           <div class="col-12 text-center">
-            <a href="herbalMedicine.php" class="btn btn-primary px-4 py-3">View All Products</a>
+            <a href="herbalMedicine.php" class="btn btn-primary px-4 py-3"><?php echo $btn;?></a>
           </div>
         </div>
       </div>
@@ -158,43 +150,43 @@ require_once("./includes/header.php")
       <div class="container">
         <div class="row">
           <div class="title-section text-center col-12">
-            <h2 class="text-uppercase">First Aid</h2>
+            <h2 class="text-uppercase"><?php echo $firstaidPage?></h2>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12 block-3 products-wrap">
             <div class="nonloop-block-3 owl-carousel">
 
-              <div class="text-center item mb-4">
-                <a href="firstAidDetails.php"> <img src="images/product_03.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="firstAidDetails.php">Umcka Cold Care</a></h3>
-                <p class="price">$120.00</p>
-              </div>
+            <?php
+              $sql = "SELECT * FROM firstaid_$language LIMIT 4";
+              $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
+              
+              $medicines = "";
+              while ($row = mysqli_fetch_assoc($result)) {
+                  $name = clean_data($row['name']);
+                  $id = clean_data($row['id']);
+                  $image = clean_data($row['image']);
+              
+                  if (!file_exists("images/firstAid/$image.webp")) {
+                      $image = "default";
+                  }
+              
+                  $medicines .= " <div class='text-center item mb-4'>
+                    <a href='firstAid.php'> <img src='images/firstAid/$image.webp' alt='Image' width='100' height='200'></a>
+                    <h3 class='text-dark'><a href='firstAid.php'>$name</a></h3>
+                  </div>";
+              }
 
-              <div class="text-center item mb-4">
-                <a href="firstAidDetails.php"> <img src="images/product_01.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="firstAidDetails.php">Umcka Cold Care</a></h3>
-                <p class="price">$120.00</p>
-              </div>
+              echo $medicines;
 
-              <div class="text-center item mb-4">
-                <a href="firstAidDetails.php"> <img src="images/product_02.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="firstAidDetails.php">Umcka Cold Care</a></h3>
-                <p class="price">$120.00</p>
-              </div>
-
-              <div class="text-center item mb-4">
-                <a href="firstAidDetails.php"> <img src="images/product_04.png" alt="Image"></a>
-                <h3 class="text-dark"><a href="firstAidDetails.php">Umcka Cold Care</a></h3>
-                <p class="price">$120.00</p>
-              </div>
+            ?>
 
             </div>
           </div>
         </div>
         <div class="row mt-5">
           <div class="col-12 text-center">
-            <a href="firstAid.php" class="btn btn-primary px-4 py-3">View All Products</a>
+            <a href="firstAid.php" class="btn btn-primary px-4 py-3"><?php echo $btn;?></a>
           </div>
         </div>
       </div>

@@ -4,25 +4,28 @@
           <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
 
             <div class="block-7">
-              <h3 class="footer-heading mb-4">About Us</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quae reiciendis distinctio voluptates
-                sed dolorum excepturi iure eaque, aut unde.</p>
+              <h3 class="footer-heading mb-4"><?php echo $aboutPage;?></h3>
+              <a href="about.php" style="color:#000; text-align:justify"><p>
+                <?php 
+                $content = substr($about, 0, strrpos(substr($about, 0, floor(strlen($about) / 4)), ' ') - 16);
+                  echo $content."...";
+                ?>
+              </p></a>
             </div>
 
           </div>
           <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
-            <h3 class="footer-heading mb-4">Quick Links</h3>
+            <h3 class="footer-heading mb-4"><?php echo $siteTitle;?></h3>
             <ul class="list-unstyled">
-              <li><a href="#">Supplements</a></li>
-              <li><a href="#">Vitamins</a></li>
-              <li><a href="#">Diet &amp; Nutrition</a></li>
-              <li><a href="#">Tea &amp; Coffee</a></li>
+              <li><a href="#"><?php echo ($language == "en")?"Common ".$medicinePage: $medicinePage."ی رایج";?></a></li>
+              <li><a href="#"><?php echo ($language == "en")?"Herbal ".$medicinePage: $medicinePage."ی گیاهی";?></a></li>
+              <li><a href="#"><?php echo $firstaidPage;?></a></li>
             </ul>
           </div>
 
           <div class="col-md-6 col-lg-3">
             <div class="block-5 mb-5">
-              <h3 class="footer-heading mb-4">Contact Info</h3>
+              <h3 class="footer-heading mb-4"><?php echo $contact;?></h3>
               <ul class="list-unstyled">
                 <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
                 <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
@@ -32,19 +35,6 @@
 
 
           </div>
-        </div>
-        <div class="row pt-5 mt-5 text-center">
-          <div class="col-md-12">
-            <p>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-              Copyright &copy;
-              <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
-              with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank"
-                class="text-primary">Colorlib</a>
-              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            </p>
-          </div>
-
         </div>
       </div>
     </footer>
@@ -91,7 +81,17 @@
     function stopSpeech() {
       window.speechSynthesis.cancel();
     }
-  
+    
+    // function medicinesFavorite(id){
+    //   // let ids = new array();
+    //   // ids[] = id;
+    //   localStorage.setItem("medicineID", id);
+    //   // localStorage.setItem("medicineID", JSON.stringify(ids), '');
+    //   let storedNames = JSON.parse(localStorage.getItem("medicines"));
+    //   // window.location.href=”index.php?uid=1";
+    // }
+
+    
 
 </script>
 

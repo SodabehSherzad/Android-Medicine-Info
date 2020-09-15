@@ -27,7 +27,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $image = clean_data($row['image']);
 
     if (!file_exists("images/medicine/$image.webp")) {
-        $image = "default";
+        $image = "image";
     }
 
     $medicines .= "<div class='col-sm-6 col-lg-4 text-center item mb-4'>

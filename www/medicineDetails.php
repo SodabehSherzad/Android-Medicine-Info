@@ -29,7 +29,7 @@ if ($row = mysqli_fetch_row($result)) {
               <h2 class='text-black'>$name</h2>
               <h4>$usage</h4>
               <p>$details</p>
-              <p><a href='bookMarks.php?id=$id' class='buy-now btn btn-sm height-auto px-4 py-3 btn-primary'>$add</a></p>
+              <p><a href='bookMarks.php' class='buy-now btn btn-sm height-auto px-4 py-3 btn-primary' onclick='medicinesFavorite($id)'>$add</a></p>
               <p style='display: inline-block'><a href='#' onclick=\"textToSpeech('$details2')\" class='btn btn-sm btn-primary'>Play Voice</a></p>
               <p style='display: inline-block'><a href='#' onclick=\"stopSpeech()\" class='btn btn-sm btn-primary'>Stop Voice</a></p>
 
