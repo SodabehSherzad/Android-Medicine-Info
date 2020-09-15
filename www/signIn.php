@@ -1,11 +1,41 @@
-<?php 
-$title = "Login"; 
-require_once("./includes/header.php")
+<?php
+$title = "Login";
+require_once "./includes/header.php";
+
+$errors = [];
+$username = "";
+$password = "";
+if (isset($_POST['btnLogin'])) {
+    //echo "<pre>";
+    // print_r($_POST);
+    //echo "</pre>";
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    if (trim($username) === '') {
+        $errors[] = "Username is requried!";
+    } else if (strlen($username) < 3 || strlen($username) > 55) {
+        $errors[] = "Username must be between 3 and 55 characters!";
+    }
+
+    if (trim($password) === '') {
+        $errors[] = "Password is requried!";
+    } else if (strlen($password) < 3 || strlen($password) > 55) {
+        $errors[] = "Password must be between 3 and 55 characters!";
+    }
+
+    if (count($errors) === 0) {
+        //TODO: check login
+        echo "Check login login here ...";
+    }
+
+}
 ?>
 <body>
 
   <div class="site-wrap">
-  <?php require_once("./includes/navbar.php")?>
+  <?php require_once "./includes/navbar.php"?>
 
     <div class="bg-light py-3">
       <div class="container">
@@ -28,37 +58,50 @@ require_once("./includes/header.php")
           </div>
         </div>
         <div class="row">
+        
           <div class="col-md-9">
             <h2 class="h3 mb-5 text-black">Sign in Page</h2>
           </div>
           <div class="col-md-12">
-    
-            <form action="signIn.php" method="post">
-    
+          <?php
+
+            if (isset($errors) & count($errors) > 0) {
+                echo "<ul>";
+
+                foreach ($errors as $error) {
+                    echo "<li class='error'>$error</li>";
+                }
+
+                echo "</ul>";
+            }
+
+            ?>
+            <form id="frmLogin" action="signIn.php" method="post">
+
               <div class="p-3 p-lg-5 border">
                 <div class="form-group row">
                   <div class="col-md-6">
-                    <label for="c_fname" class="text-black">User Name <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="c_fname" name="c_fname">
+                    <label for="username" class="text-black">Username <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="username" name="username" value="<?= $username; ?>">
                   </div>
                 </div>
                 <div class="form-group row">
                 <div class="col-md-6">
-                    <label for="c_lname" class="text-black">Password <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="c_lname" name="c_lname">
+                    <label for="password" class="text-black">Password <span class="text-danger">*</span></label>
+                    <input type="password" class="form-control" id="password" name="password" value="<?= $password; ?>">
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-lg-6">
-                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Sign In">
+                    <input type="submit" id="btnLogin" name="btnLogin" class="btn btn-primary btn-lg btn-block" value="Sign In">
                   </div>
                 </div>
               </div>
-             
+
             </form>
-            
+
           </div>
-          
+
         </div>
       </div>
     </div>
@@ -91,6 +134,10 @@ require_once("./includes/header.php")
           </div>
         </div>
       </div>
-      
+
     </div>
-    <?php require_once("./includes/footer.php")?>
+    <?php
+$scripts = "<script src='js/validation/jquery.validate.js'></script>";
+$scripts .= "<script src='js/validate_login.js'></script>";
+require_once "./includes/footer.php";
+?>

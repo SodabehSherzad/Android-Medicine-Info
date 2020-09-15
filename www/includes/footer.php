@@ -49,6 +49,12 @@
 <script src="js/jquery.magnific-popup.min.js"></script>
 <script src="js/aos.js"></script>
 
+<?php
+  if (isset($scripts)) {
+    echo $scripts;
+  }
+?>
+
 <script src="js/main.js"></script>
 
 <!--  SET preferred language  -->
