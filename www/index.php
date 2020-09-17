@@ -104,7 +104,7 @@ require_once("./includes/header.php")
           <div class="col-md-12 block-3 products-wrap">
             <div class="nonloop-block-3 owl-carousel">
             <?php
-              $sql = "SELECT * FROM medicines_$language WHERE category_id = 1 LIMIT 4";
+              $sql = "SELECT * FROM medicines_$language WHERE category_id = 1 ORDER BY name DESC LIMIT 4";
               $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
               echo read_data($result);
             ?>
@@ -113,7 +113,7 @@ require_once("./includes/header.php")
         </div>
         <div class="row mt-5">
           <div class="col-12 text-center">
-            <a href="medicine.php" class="btn btn-primary px-4 py-3"><?php echo $btn;?></a>
+            <a href="medicine.php?category_id = 1" class="btn btn-primary px-4 py-3"><?php echo $btn;?></a>
           </div>
         </div>
       </div>
@@ -131,7 +131,7 @@ require_once("./includes/header.php")
           <div class="col-md-12 block-3 products-wrap">
             <div class="nonloop-block-3 owl-carousel">
             <?php
-              $sql = "SELECT * FROM medicines_$language WHERE category_id = 2 LIMIT 4";
+              $sql = "SELECT * FROM medicines_$language WHERE category_id = 2 ORDER BY name DESC LIMIT 4";
               $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
               echo read_data($result);
             ?>
@@ -140,7 +140,7 @@ require_once("./includes/header.php")
         </div>
         <div class="row mt-5">
           <div class="col-12 text-center">
-            <a href="herbalMedicine.php" class="btn btn-primary px-4 py-3"><?php echo $btn;?></a>
+            <a href="herbalMedicine.php?category_id = 2" class="btn btn-primary px-4 py-3"><?php echo $btn;?></a>
           </div>
         </div>
       </div>
@@ -158,7 +158,7 @@ require_once("./includes/header.php")
             <div class="nonloop-block-3 owl-carousel">
 
             <?php
-              $sql = "SELECT * FROM firstaid_$language LIMIT 4";
+              $sql = "SELECT * FROM firstaid_$language ORDER BY name DESC LIMIT 4";
               $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
               
               $medicines = "";

@@ -1,8 +1,10 @@
 <?php
+require_once "../libraries/connection.php";
+
 $title = "Login";
 require_once "./includes/header.php";
 
-$errors = [];
+$errors = ["username" => "", "password" => "", "usernamecharacter" => "", "passwordcharacter" => "", "errorFind" => "" ];
 $username = "";
 $password = "";
 if (isset($_POST['btnLogin'])) {
@@ -14,20 +16,32 @@ if (isset($_POST['btnLogin'])) {
     $password = $_POST['password'];
 
     if (trim($username) === '') {
-        $errors[] = "Username is requried!";
-    } else if (strlen($username) < 3 || strlen($username) > 55) {
-        $errors[] = "Username must be between 3 and 55 characters!";
+        $errors["username"] = "Username is requried!";
+    } else if (strlen($username) < 6 || strlen($username) > 55) {
+        $errors["usernamecharacter"] = "Username must be between 6 and 55 characters!";
     }
 
     if (trim($password) === '') {
-        $errors[] = "Password is requried!";
+        $errors["password"] = "Password is requried!";
     } else if (strlen($password) < 3 || strlen($password) > 55) {
-        $errors[] = "Password must be between 3 and 55 characters!";
+        $errors["passwordcharacter"] = "Password must be between 3 and 55 characters!";
     }
 
-    if (count($errors) === 0) {
-        //TODO: check login
-        echo "Check login login here ...";
+    if (empty($errors["password"]) && empty($errors["username"]) && empty($errors["usernamecharacter"]) 
+        && empty($errors["passwordcharacter"])) {
+      $sql = "SELECT * FROM users WHERE `user_name` = '$username' AND `password` = '$password' LIMIT 1";
+      $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
+      $row = mysqli_fetch_assoc($result);
+      if($row){
+        echo "<label><span class='text-success'>You successfully Login!!!</span></label>";
+        // header("location: index.php");
+      }else{
+        // header("location: signUp.php");
+
+        $errors["errorFind"] = "The password or Username do not exsit!";
+      }
+      // $row = mysqli_fetch_assoc($result);
+      // echo "<pre>".print_r($row)."</pre>";
     }
 
 }
@@ -63,19 +77,6 @@ if (isset($_POST['btnLogin'])) {
             <h2 class="h3 mb-5 text-black">Sign in Page</h2>
           </div>
           <div class="col-md-12">
-          <?php
-
-            if (isset($errors) & count($errors) > 0) {
-                echo "<ul>";
-
-                foreach ($errors as $error) {
-                    echo "<li class='error'>$error</li>";
-                }
-
-                echo "</ul>";
-            }
-
-            ?>
             <form id="frmLogin" action="signIn.php" method="post">
 
               <div class="p-3 p-lg-5 border">
@@ -83,17 +84,26 @@ if (isset($_POST['btnLogin'])) {
                   <div class="col-md-6">
                     <label for="username" class="text-black">Username <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="username" name="username" value="<?= $username; ?>">
+                    <label for="username" class="text-black"><span class="text-danger"><?= $errors["username"]?></span></label>
+                    <label for="username" class="text-black"><span class="text-danger"><?= $errors["usernamecharacter"]?></</span></label>
                   </div>
                 </div>
                 <div class="form-group row">
-                <div class="col-md-6">
+                  <div class="col-md-6">
                     <label for="password" class="text-black">Password <span class="text-danger">*</span></label>
                     <input type="password" class="form-control" id="password" name="password" value="<?= $password; ?>">
+                    <label for="password" class="text-black"><span class="text-danger"><?= $errors["password"]?></span></label>
+                    <label for="password" class="text-black"><span class="text-danger"><?= $errors["passwordcharacter"]?></</span></label>
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-lg-6">
                     <input type="submit" id="btnLogin" name="btnLogin" class="btn btn-primary btn-lg btn-block" value="Sign In">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-lg-6">
+                    <label><span class='text-danger'><?= $errors['errorFind']?></span></label>
                   </div>
                 </div>
               </div>
