@@ -4,7 +4,7 @@ require_once "../libraries/connection.php";
 $title = "Login";
 require_once "./includes/header.php";
 
-$errors = ["username" => "", "password" => "", "usernamecharacter" => "", "passwordcharacter" => "", "errorFind" => "" ];
+$errors = ["username" => "", "password" => "", "errorFind" => "" ];
 $username = "";
 $password = "";
 if (isset($_POST['btnLogin'])) {
@@ -18,18 +18,20 @@ if (isset($_POST['btnLogin'])) {
     if (trim($username) === '') {
         $errors["username"] = "Username is requried!";
     } else if (strlen($username) < 6 || strlen($username) > 55) {
-        $errors["usernamecharacter"] = "Username must be between 6 and 55 characters!";
+        $errors["username"] = "Username must be between 6 and 55 characters!";
     }
 
     if (trim($password) === '') {
         $errors["password"] = "Password is requried!";
     } else if (strlen($password) < 3 || strlen($password) > 55) {
-        $errors["passwordcharacter"] = "Password must be between 3 and 55 characters!";
+        $errors["password"] = "Password must be between 3 and 55 characters!";
     }
 
-    if (empty($errors["password"]) && empty($errors["username"]) && empty($errors["usernamecharacter"]) 
-        && empty($errors["passwordcharacter"])) {
-      $sql = "SELECT * FROM users WHERE `user_name` = '$username' AND `password` = '$password' LIMIT 1";
+    if ( empty($errors["password"]) && empty($errors["username"]) ) {
+      $username = mysqli_real_escape_string($GLOBALS['DB'], $username);
+      $password = mysqli_real_escape_string($GLOBALS['DB'], $password);
+      $sql = "SELECT * FROM users WHERE `user_name` = '$username' AND `password` = sha1('$password') LIMIT 1";
+      echo "<h1>$sql</h1>";
       $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
       $row = mysqli_fetch_assoc($result);
       if($row){
@@ -37,7 +39,6 @@ if (isset($_POST['btnLogin'])) {
         // header("location: index.php");
       }else{
         // header("location: signUp.php");
-
         $errors["errorFind"] = "The password or Username do not exsit!";
       }
       // $row = mysqli_fetch_assoc($result);
@@ -85,7 +86,6 @@ if (isset($_POST['btnLogin'])) {
                     <label for="username" class="text-black">Username <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="username" name="username" value="<?= $username; ?>">
                     <label for="username" class="text-black"><span class="text-danger"><?= $errors["username"]?></span></label>
-                    <label for="username" class="text-black"><span class="text-danger"><?= $errors["usernamecharacter"]?></</span></label>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -93,7 +93,6 @@ if (isset($_POST['btnLogin'])) {
                     <label for="password" class="text-black">Password <span class="text-danger">*</span></label>
                     <input type="password" class="form-control" id="password" name="password" value="<?= $password; ?>">
                     <label for="password" class="text-black"><span class="text-danger"><?= $errors["password"]?></span></label>
-                    <label for="password" class="text-black"><span class="text-danger"><?= $errors["passwordcharacter"]?></</span></label>
                   </div>
                 </div>
                 <div class="form-group row">
