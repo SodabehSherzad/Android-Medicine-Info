@@ -1,0 +1,8 @@
+{
+    "name": "sherzad/medicine-info",
+    "description": "provide useful info about the common and herbal medicines",
+    "type": "project",
+    "require": {
+        "wixel/gump": "^1.11"
+    }
+}
