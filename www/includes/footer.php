@@ -27,9 +27,9 @@
             <div class="block-5 mb-5">
               <h3 class="footer-heading mb-4"><?php echo $contact;?></h3>
               <ul class="list-unstyled">
-                <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
-                <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
-                <li class="email">emailaddress@domain.com</li>
+                <li class="address">Herat Afghanistan</li>
+                <li class="phone"><a href="">+93 999 777 888</a></li>
+                <li class="email">emailaddress@gmail.com</li>
               </ul>
             </div>
 
@@ -90,14 +90,18 @@
     
     // function medicinesFavorite(id){
     //   // let ids = new array();
-    //   // ids[] = id;
-    //   localStorage.setItem("medicineID", id);
-    //   // localStorage.setItem("medicineID", JSON.stringify(ids), '');
+    //   // medicineIds[] = id;
+    //   // firstaidId[] = id;
+        // if($_GET['medicine'] == 1){
+    //      localStorage.setItem("medicineID", id);
+    //   // localStorage.setItem("medicineID", JSON.stringify(medicineIds), '');
+        // }else if($_GET['medicine'] == 2){
+      //       localStorage.setItem("firstaidID", id);
+      //       localStorage.setItem("firstaidID", JSON.stringify(firstaidId), '');
+        // }
     //   let storedNames = JSON.parse(localStorage.getItem("medicines"));
-    //   // window.location.href=”index.php?uid=1";
+    //   window.location.href=”index.php?uid=1";
     // }
-
-    
 
 </script>
 

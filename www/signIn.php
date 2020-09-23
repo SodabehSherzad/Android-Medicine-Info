@@ -30,16 +30,16 @@ if (isset($_POST['btnLogin'])) {
     if ( empty($errors["password"]) && empty($errors["username"]) ) {
       $username = mysqli_real_escape_string($GLOBALS['DB'], $username);
       $password = mysqli_real_escape_string($GLOBALS['DB'], $password);
-      $sql = "SELECT * FROM users WHERE `user_name` = '$username' AND `password` = sha1('$password') LIMIT 1";
-      echo "<h1>$sql</h1>";
+      $sql = "SELECT * FROM users WHERE `user_name` = '$username' AND `password` = PASSWORD('$password') LIMIT 1";
+      // echo "<h1>$sql</h1>";
       $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
       $row = mysqli_fetch_assoc($result);
       if($row){
         echo "<label><span class='text-success'>You successfully Login!!!</span></label>";
-        // header("location: index.php");
+        header("location: index.php");
       }else{
-        // header("location: signUp.php");
         $errors["errorFind"] = "The password or Username do not exsit!";
+        // header("location: signUp.php");
       }
       // $row = mysqli_fetch_assoc($result);
       // echo "<pre>".print_r($row)."</pre>";
@@ -74,10 +74,10 @@ if (isset($_POST['btnLogin'])) {
         </div>
         <div class="row">
         
-          <div class="col-md-9">
+        <div class="col-md-12">
             <h2 class="h3 mb-5 text-black">Sign in Page</h2>
           </div>
-          <div class="col-md-12">
+          <div class="col-md-12" class="m-auto">
             <form id="frmLogin" action="signIn.php" method="post">
 
               <div class="p-3 p-lg-5 border">
@@ -113,37 +113,6 @@ if (isset($_POST['btnLogin'])) {
 
         </div>
       </div>
-    </div>
-
-
-
-    <div class="site-section bg-primary">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <h2 class="text-white mb-4">Offices</h2>
-          </div>
-          <div class="col-lg-4">
-            <div class="p-4 bg-white mb-3 rounded">
-              <span class="d-block text-black h6 text-uppercase">New York</span>
-              <p class="mb-0">203 Fake St. Mountain View, San Francisco, California, USA</p>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="p-4 bg-white mb-3 rounded">
-              <span class="d-block text-black h6 text-uppercase">London</span>
-              <p class="mb-0">203 Fake St. Mountain View, San Francisco, California, USA</p>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="p-4 bg-white mb-3 rounded">
-              <span class="d-block text-black h6 text-uppercase">Canada</span>
-              <p class="mb-0">203 Fake St. Mountain View, San Francisco, California, USA</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
     <?php
 $scripts = "<script src='js/validation/jquery.validate.js'></script>";

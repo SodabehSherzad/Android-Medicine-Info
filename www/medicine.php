@@ -1,5 +1,6 @@
 <?php
 require_once "../helpers/common.php";
+require_once "../lang/$language.php";
 require_once "../libraries/connection.php";
 require_once "../libraries/Paginator.php";
 
@@ -52,10 +53,47 @@ require_once "./includes/header.php"
         </div>
       </div>
     </div>
-
     <div class="site-section">
       <div class="container">
-
+        <div class="row">
+        
+        <div class="col-md-12 col-lg-12 mb-4 mb-lg-0">
+            <div class="banner-wrap bg-primary h-100">
+              <a href="#" class="h-100">
+                <h5><?php 
+                  $hm = ($language == "en")?"Herbal ".$medicinePage: $medicinePage."ی گیاهی";
+                  $cm = ($language == "en")?"Common ".$medicinePage: $medicinePage."ی رایج";
+                  echo ($category == 1)?$cm:$hm;
+                  ?></h5>
+                <!-- <p>
+                  <strong><? 
+                    $text = ($language == "en") ? "About Herbal Medicine" : "درباره دارو های گیاهی";
+                    $sql = "SELECT * FROM medicines_$language WHERE category_id = 2 AND  `name` = '$text'LIMIT 1";
+                    $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
+                    $row = mysqli_fetch_assoc($result);
+                    $content = $row['details'];
+                    echo ($_GET["category"] == 1)?$about:$content; ?>
+                  </strong>
+                </p> -->
+              </a>
+            </div>
+          </div>
+      </div>
+      
+    </div>
+    <div class="site-section">
+      <div class="container">
+        <!-- <div class="row">
+          <div class="title-section text-center col-12">
+            <h2 class="text-uppercase">
+              <?php 
+                $titH = ($language == "en")?"Herbal ".$medicinePage: $medicinePage."ی گیاهی";
+                $titC = ($language == "en")?"Common ".$medicinePage: $medicinePage."ی رایج";
+                echo ($category == 1)?$titC:$titH;
+              ?>
+            </h2>
+          </div>
+        </div> -->
         <div class="row">
           <?php echo $medicines; ?>
         </div>

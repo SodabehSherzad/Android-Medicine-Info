@@ -39,7 +39,7 @@ require_once("./includes/header.php")
                   </tr>
                 </thead>
                 <tbody>
-                 <?php echo $favorites;?>
+                 <!-- <?php echo $favorites;?> -->
                 </tbody>
               </table>
             </div>

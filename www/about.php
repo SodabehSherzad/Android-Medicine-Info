@@ -1,8 +1,12 @@
 <?php
 require_once "../helpers/common.php";
 require_once "../libraries/connection.php";
-$sql = "SELECT * FROM medicines_$language WHERE name = 'About Herbal Medicine'";
-$sql1 = "SELECT * FROM firstaid_$language WHERE name = 'About First Aid'";
+$text1 = ($language == "en") ? "About Herbal Medicine" : "درباره دارو های گیاهی";
+
+$text2 = ($language == "en") ? "About First Aid" : "درباره کمک های اولیه";
+
+$sql = "SELECT * FROM medicines_$language WHERE name = '$text1'";
+$sql1 = "SELECT * FROM firstaid_$language WHERE name = '$text2'";
 $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
 $result1 = mysqli_query($GLOBALS['DB'], $sql1) or die(mysqli_error($GLOBALS['DB']));
 $row = mysqli_fetch_assoc($result);

@@ -31,7 +31,6 @@ $title = "Home";
 require_once("./includes/header.php")
 ?>
 <body>
-  <div class="site-wrap">
   <?php require_once("./includes/navbar.php")?>
     <div class="site-blocks-cover" style="background-image: url('images/hero_1.jpg');">
       <div class="container">
@@ -39,10 +38,7 @@ require_once("./includes/header.php")
           <div class="col-lg-7 mx-auto order-lg-2 align-self-center">
             <div class="site-block-cover-content text-center">
               <h2 class="sub-title">Effective Medicine, New Medicine Everyday</h2>
-              <h1>Welcome To Pharma</h1>
-              <p>
-                <a href="#" class="btn btn-primary px-5 py-3">Shop Now</a>
-              </p>
+              <h1>Welcome To Medicine Info</h1>
             </div>
           </div>
         </div>
@@ -52,35 +48,49 @@ require_once("./includes/header.php")
     <div class="site-section">
       <div class="container">
         <div class="row align-items-stretch section-overlap">
+
           <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
             <div class="banner-wrap bg-primary h-100">
-              <a href="#" class="h-100">
-                <h5>Free <br> Shipping</h5>
+              <a href="medicine.php?category=1" class="h-100">
+                <h5><?=($language == "en")?"Common ".$medicinePage: $medicinePage."ی رایج"?></h5>
                 <p>
-                  Amet sit amet dolor
-                  <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                  <strong><?= $content = substr($about, 0, strrpos(substr($about, 0, floor(strlen($about) / 4)), ' ') - 16);
+                  echo $content;?></strong>
                 </p>
               </a>
             </div>
           </div>
           <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
             <div class="banner-wrap h-100">
-              <a href="#" class="h-100">
-                <h5>Season <br> Sale 50% Off</h5>
+              <a href="medicine.php?category=2" class="h-100">
+              <h5><?= ($language == "en")?"Herbal ".$medicinePage: $medicinePage."ی گیاهی";?></h5>
                 <p>
-                  Amet sit amet dolor
-                  <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                
+                  <strong><?php 
+                  $text = ($language == "en") ? "About Herbal Medicine" : "درباره دارو های گیاهی";
+                  $sql = "SELECT * FROM medicines_$language WHERE category_id = 2 AND  `name` = '$text'LIMIT 1";
+                  $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
+                  $row = mysqli_fetch_assoc($result);
+                  $content = $row['details'];
+                  echo substr($content, 0, strrpos(substr($content, 0, floor(strlen($content) / 2)), ' ') - 45);
+                  ?></strong>
                 </p>
               </a>
             </div>
           </div>
           <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
             <div class="banner-wrap bg-warning h-100">
-              <a href="#" class="h-100">
-                <h5>Buy <br> A Gift Card</h5>
+              <a href="firstAid.php" class="h-100">
+                <h5><?= $firstaidPage?></h5>
                 <p>
-                  Amet sit amet dolor
-                  <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                  <strong><?php 
+                  $text = ($language == "en") ? "About First Aid" : "درباره کمک های اولیه";
+                  $sql = "SELECT * FROM firstaid_$language WHERE `name` = '$text' LIMIT 1";
+                  $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
+                  $row = mysqli_fetch_assoc($result);
+                  $content = $row['details'];
+                  echo substr($content, 0, strrpos(substr($content, 0, floor(strlen($content) / 3)), ' ') - 16);
+                  ?></strong>
                 </p>
               </a>
             </div>
@@ -95,9 +105,10 @@ require_once("./includes/header.php")
         <div class="row">
           <div class="title-section text-center col-12">
             <h2 class="text-uppercase">
-            <?php $tit = ($language == "en")?"Common ".$medicinePage: $medicinePage."ی رایج";
+              <?php $tit = ($language == "en")?"Common ".$medicinePage: $medicinePage."ی رایج";
               echo $tit;
-            ?></h2>
+              ?>
+            </h2>
           </div>
         </div>
         <div class="row">
@@ -113,7 +124,7 @@ require_once("./includes/header.php")
         </div>
         <div class="row mt-5">
           <div class="col-12 text-center">
-            <a href="medicine.php?category_id = 1" class="btn btn-primary px-4 py-3"><?php echo $btn;?></a>
+            <a href="medicine.php?category = 1" class="btn btn-primary px-4 py-3"><?php echo $btn;?></a>
           </div>
         </div>
       </div>
@@ -140,7 +151,7 @@ require_once("./includes/header.php")
         </div>
         <div class="row mt-5">
           <div class="col-12 text-center">
-            <a href="herbalMedicine.php?category_id = 2" class="btn btn-primary px-4 py-3"><?php echo $btn;?></a>
+            <a href="medicine.php?category=2" class="btn btn-primary px-4 py-3"><?php echo $btn;?></a>
           </div>
         </div>
       </div>

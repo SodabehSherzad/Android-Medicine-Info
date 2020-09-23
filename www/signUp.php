@@ -2,13 +2,22 @@
 require_once "../libraries/connection.php";
 $title = "Checkout";
 require_once "./includes/header.php";
-require_once '../vendor/autoload.php';
+require_once '..\vendor\autoload.php';
 
 $passwordErr = "";
 $validation_msgs = null;
 $fname = $lname = $username = $password = $confirm_password = $email = $address = $country = $note = $phone = "";
 if (isset($_POST['btnSignUp'])) {
-
+  $fname = $_POST['fname'];
+  $lname = $_POST['lname'];
+  $password = $_POST['password'];
+  $confirm_password = $_POST['confirm_password'];
+  $email = $_POST['email'];
+  $country = $_POST['country'];
+  $phone = $_POST['phone'];
+  $address = $_POST['address'];
+  $username = $_POST['username'];
+  $note = $_POST['note'];
     // Form validation
     $validator = new GUMP();
 
@@ -21,7 +30,7 @@ if (isset($_POST['btnSignUp'])) {
         'email' => 'required|valid_email',
         'phone' => 'required|numeric|max_len,20|min_len,10',
         'address' => 'required',
-        'username' => 'required|numeric|max_len,55|min_len,6',
+        'username' => 'required|max_len,55|min_len,6',
         'note' => 'required',
     ];
 
@@ -54,7 +63,6 @@ if (isset($_POST['btnSignUp'])) {
         $note = mysqli_real_escape_string($GLOBALS['DB'], $_POST['note']);
 
         //before insert we will check that exist user or email similar if exit we show err else insert
-
         $sql = "INSERT INTO users VALUES(NULL, '$fname', '$lname', '$username', '$address', '$email', '$country', '$phone', '$note', '$password')";
         $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
     } else {
@@ -112,14 +120,14 @@ if (isset($_POST['btnSignUp'])) {
                 <label for="country" class="text-black">Country <span class="text-danger">*</span></label>
                 <select id="country" class="form-control" name="country">
                   <option value="<?=$country?>">Select a country</option>
-                  <option value="Bangladesh">Bangladesh</option>
-                  <option value="Algeria">Algeria</option>
-                  <option value="Afghanistan">Afghanistan</option>
-                  <option value="Ghana">Ghana</option>
-                  <option value="Albania">Albania</option>
-                  <option value="Bahrain">Bahrain</option>
-                  <option value="Colombia">Colombia</option>
-                  <option value="Dominican Republic">Dominican Republic</option>
+                  <option value="<?=$country?>">Bangladesh</option>
+                  <option value="<?=$country?>">Algeria</option>
+                  <option value="<?=$country?>">Afghanistan</option>
+                  <option value="<?=$country?>">Ghana</option>
+                  <option value="<?=$country?>">Albania</option>
+                  <option value="<?=$country?>">Bahrain</option>
+                  <option value="<?=$country?>">Colombia</option>
+                  <option value="<?=$country?>">Dominican Republic</option>
                 </select>
               </div>
               <div class="form-group row">
@@ -170,7 +178,7 @@ if (isset($_POST['btnSignUp'])) {
               <div class="form-group">
                 <label for="note" class="text-black">Order Notes</label>
                 <textarea name="note" id="note" cols="30" rows="5" class="form-control"
-                  placeholder="Write your notes here..."></textarea>
+                  placeholder="Write your notes here..."><?= $note;?></textarea>
               </div>
               <div class="form-group row">
                   <div class="col-lg-6">
@@ -185,29 +193,4 @@ if (isset($_POST['btnSignUp'])) {
       </div>
     </div>
 
-
-    <div class="site-section bg-secondary bg-image" style="background-image: url('images/bg_2.jpg');">
-      <div class="container">
-        <div class="row align-items-stretch">
-          <div class="col-lg-6 mb-5 mb-lg-0">
-            <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/bg_1.jpg');">
-              <div class="banner-1-inner align-self-center">
-                <h2>Pharma Products</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
-                </p>
-              </div>
-            </a>
-          </div>
-          <div class="col-lg-6 mb-5 mb-lg-0">
-            <a href="#" class="banner-1 h-100 d-flex" style="background-image: url('images/bg_2.jpg');">
-              <div class="banner-1-inner ml-auto  align-self-center">
-                <h2>Rated by Experts</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem odio voluptatem.
-                </p>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
     <?php require_once "./includes/footer.php"?>

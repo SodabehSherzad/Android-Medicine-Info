@@ -1,5 +1,6 @@
 <?php 
 require_once "../helpers/common.php";
+require_once "../lang/$language.php";
 require_once "../libraries/connection.php";
 require_once "../libraries/Paginator.php";
 
@@ -47,10 +48,40 @@ require_once("./includes/header.php")
         </div>
       </div>
     </div>
-
     <div class="site-section">
       <div class="container">
-    
+        <div class="row">
+        
+        <div class="col-md-12 col-lg-12 mb-4 mb-lg-0">
+            <div class="banner-wrap bg-primary h-100">
+              <a href="#" class="h-100">
+                <h5><?= $firstaidPage?></h5>
+                <!-- <p>
+                  <strong><?php 
+                  $text = ($language == "en") ? "About First Aid" : "درباره کمک های اولیه";
+                  $sql = "SELECT * FROM firstaid_$language WHERE `name` = '$text' LIMIT 1";
+                  $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
+                  $row = mysqli_fetch_assoc($result);
+                  echo $row['details']; ?></strong>
+                </p> -->
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="site-section">
+      <div class="container">
+        <!-- <div class="row">
+          <div class="title-section text-center col-12">
+            <h2 class="text-uppercase">
+              <?php 
+                echo $firstaidPage;
+              ?>
+            </h2>
+          </div>
+        </div> -->
         <div class="row">
           <?php echo $medicines; ?>
         </div>
