@@ -3,10 +3,20 @@
 require_once("../libraries/connection.php");
 require_once("../helpers/common.php");
 
-// $ids = $_GET['id'];
-// $ids = "<script>document.write(localStorage.getItem('medicineID'));</script>";
 $title = $bookMarksPage; 
-require_once("./includes/header.php")
+require_once("./includes/header.php");
+
+
+$origin = $_GET['origin'];
+echo $origin;
+
+echo "<script>
+  Store.getFavorites(\"$origin\");
+</script>";
+$ids =  $_COOKIE['favorites'];
+$sql = "<br>SELECT * FROM $origin WHERE id IN ($ids)";
+echo $sql;
+
 ?>
 
 <body>

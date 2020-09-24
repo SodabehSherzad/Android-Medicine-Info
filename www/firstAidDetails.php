@@ -23,7 +23,7 @@ if ($row = mysqli_fetch_row($result)) {
     }
 
     $check = ($language == 'en')? 'inline-block' : 'none';
-
+    $origin = "firstAids";
     $firstaidDetails .= "<div class='row'>
             <div class='col-md-5 mr-auto'>
               <div class='border text-center'>
@@ -37,7 +37,7 @@ if ($row = mysqli_fetch_row($result)) {
               <h2 class='text-black'>$name</h2>
               <p>$details</p>
 
-              <p><a href='bookMarks.php?medicine=2' class='buy-now btn btn-sm height-auto px-4 py-3 btn-primary' onclick='\"medicinesFavorite($id)\"'>$add</a></p>
+              <p><a href='#' class='buy-now btn btn-sm height-auto px-4 py-3 btn-primary' onclick='medicinesFavorite(\"$origin\", $id)'>$add</a></p>
               <p style='display: $check'><a href='#' onclick=\"textToSpeech('$details2')\" class='btn btn-sm btn-primary'>Play Voice</a></p>
               <p style='display: $check'><a href='#' onclick=\"stopSpeech()\" class='btn btn-sm btn-primary'>Stop Voice</a></p>
 

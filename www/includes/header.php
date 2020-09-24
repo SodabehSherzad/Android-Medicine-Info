@@ -19,3 +19,5 @@
 
   <link rel="stylesheet" href="./css/style.css">
 
+  <script src="js/Store.js"></script>
+

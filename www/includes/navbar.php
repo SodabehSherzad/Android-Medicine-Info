@@ -29,23 +29,30 @@ while ($row = mysqli_fetch_assoc($result)) {
         <div class="d-flex align-items-center justify-content-between">
           <div class="logo">
             <div class="site-logo">
-              <a href="index.php" class="js-logo-clone"><?= $siteTitle; ?></a>
+              <a href="index.php" class="js-logo-clone"><?=$siteTitle;?></a>
             </div>
           </div>
           <div class="main-nav d-none d-lg-block">
             <nav class="site-navigation text-right text-md-center" role="navigation">
               <ul class="site-menu js-clone-nav d-none d-lg-block">
-                <li class="active"><a href="index.php"><?= $homePage; ?></a></li>
-                <li class="has-children"><a href="#"><?= $medicinePage; ?></a>
+                <li class="active"><a href="index.php"><?=$homePage;?></a></li>
+                <li class="has-children"><a href="#"><?=$medicinePage;?></a>
                   <ul class="dropdown">
-                    <?= $categories; ?>
+                    <?=$categories;?>
+                    <li><a href="bookmarks.php?origin=medicines">Bookmarks</a></li>
                   </ul>
                 </li>
-                <li><a href="firstaid.php"><?= $firstaidPage?></a></li>
-                <li><a href="about.php"><?= $aboutPage?></a></li>
-                <li><a href="contact.php"><?= $contactPage?></a></li>
+                <li class="has-children">
+                  <a href="firstaid.php"><?=$firstaidPage?></a>
+                  <ul class="dropdown">
+                  <li><a href="firstaid.php"><?=$firstaidPage?></a></li>
+                  <li><a href="bookmarks.php?origin=firstAids">Bookmarks</a></li>
+                  </ul>
+                </li>
+                <li><a href="about.php"><?=$aboutPage?></a></li>
+                <li><a href="contact.php"><?=$contactPage?></a></li>
 
-                <li class="has-children"><a href="#"><?= $lang?></a>
+                <li class="has-children"><a href="#"><?=$lang?></a>
                   <ul class="dropdown">
                     <li><a href="" onclick="changeLanguage('en')">English</a></li>
                     <li><a href="" onclick="changeLanguage('fa')">فارسی</a></li>
@@ -58,9 +65,9 @@ while ($row = mysqli_fetch_assoc($result)) {
           <div class="icons">
             <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
             <a href="signIn.php">
-              <span class="number"><?= $loginPage?></span>
+              <span class="number"><?=$loginPage?></span>
             </a>
-           
+
           </div>
 
         </div>
