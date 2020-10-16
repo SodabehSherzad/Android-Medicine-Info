@@ -1,6 +1,7 @@
 <?php
-require_once "../libraries/connection.php";
+session_start();
 
+require_once "../libraries/connection.php";
 $title = "Login";
 require_once "./includes/header.php";
 
@@ -30,6 +31,20 @@ if (isset($_POST['btnLogin'])) {
     if ( empty($errors["password"]) && empty($errors["username"]) ) {
       $username = mysqli_real_escape_string($GLOBALS['DB'], $username);
       $password = mysqli_real_escape_string($GLOBALS['DB'], $password);
+
+    if(isset($_POST["remember"])){
+
+      setcookie("username",$uname,time()+3600);
+      setcookie("password",$pwd,time()+3600);
+      
+      }else{
+      
+        setcookie("username",$uname,time()-3600);
+        setcookie("password",$pwd,time()-3600);
+      }
+        
+        
+      $_SESSION["login_authority"]="success";
       $sql = "SELECT * FROM users WHERE `user_name` = '$username' AND `password` = PASSWORD('$password') LIMIT 1";
       // echo "<h1>$sql</h1>";
       $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
@@ -45,6 +60,13 @@ if (isset($_POST['btnLogin'])) {
       // echo "<pre>".print_r($row)."</pre>";
     }
 
+}
+
+if(isset($_GET["logout"])){
+  $_SESSION = array();
+  session_unset();
+  session_destroy();
+  $_SESSION = [];
 }
 ?>
 <body>
@@ -94,6 +116,11 @@ if (isset($_POST['btnLogin'])) {
                     <input type="password" class="form-control" id="password" name="password" value="<?= $password; ?>">
                     <label for="password" class="text-black"><span class="text-danger"><?= $errors["password"]?></span></label>
                   </div>
+                </div>
+                <div >
+                    <label class="checkbox login-checkbox">
+										  <input type="checkbox" <?php if(isset($_COOKIE["username"])){ echo "checked='checked'"; }?> class="i-checks" name="remember"> 
+                    Remember me </label>
                 </div>
                 <div class="form-group row">
                   <div class="col-lg-6">
