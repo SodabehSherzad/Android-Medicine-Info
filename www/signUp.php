@@ -1,8 +1,247 @@
 <?php
 require_once "../libraries/connection.php";
-$title = "Checkout";
+$title = "Sign Up";
 require_once "./includes/header.php";
 require_once '..\vendor\autoload.php';
+
+$countries = array("Afghanistan", "Albania", "Algeria",
+  "American Samoa",
+  "Andorra",
+  "Angola",
+  "Anguilla",
+  "Antarctica",
+  "Antigua and Barbuda",
+  "Argentina",
+  "Armenia",
+  "Aruba",
+  "Australia",
+  "Austria",
+  "Azerbaijan",
+  "Bahamas",
+  "Bahrain",
+  "Bangladesh",
+  "Barbados",
+  "Belarus",
+  "Belgium",
+  "Belize",
+  "Benin",
+  "Bermuda",
+  "Bhutan",
+  "Bolivia",
+  "Bosnia and Herzegovina",
+  "Botswana",
+  "Bouvet Island",
+  "Brazil",
+  "British Indian Ocean Territory",
+  "Brunei Darussalam",
+  "Bulgaria",
+  "Burkina Faso",
+  "Burundi",
+  "Cambodia",
+  "Cameroon",
+  "Canada",
+  "Cape Verde",
+  "Cayman Islands",
+  "Central African Republic",
+  "Chad",
+  "Chile",
+  "China",
+  "Christmas Island",
+  "Cocos (Keeling) Islands",
+  "Colombia",
+  "Comoros",
+  "Congo",
+  "Congo, the Democratic Republic of the",
+  "Cook Islands",
+  "Costa Rica",
+  "Cote D'Ivoire",
+  "Croatia",
+  "Cuba",
+  "Cyprus",
+  "Czech Republic",
+  "Denmark",
+  "Djibouti",
+  "Dominica",
+  "Dominican Republic",
+  "Ecuador",
+  "Egypt",
+  "El Salvador",
+  "Equatorial Guinea",
+  "Eritrea",
+  "Estonia",
+  "Ethiopia",
+  "Falkland Islands (Malvinas)",
+  "Faroe Islands",
+  "Fiji",
+  "Finland",
+  "France",
+  "French Guiana",
+  "French Polynesia",
+  "French Southern Territories",
+  "Gabon",
+  "Gambia",
+  "Georgia",
+  "Germany",
+  "Ghana",
+  "Gibraltar",
+  "Greece",
+  "Greenland",
+  "Grenada",
+  "Guadeloupe",
+  "Guam",
+  "Guatemala",
+  "Guinea",
+  "Guinea-Bissau",
+  "Guyana",
+  "Haiti",
+  "Heard Island and Mcdonald Islands",
+  "Holy See (Vatican City State)",
+  "Honduras",
+  "Hong Kong",
+  "Hungary",
+  "Iceland",
+  "India",
+  "Indonesia",
+  "Iran, Islamic Republic of",
+  "Iraq",
+  "Ireland",
+  "Israel",
+  "Italy",
+  "Jamaica",
+  "Japan",
+  "Jordan",
+  "Kazakhstan",
+  "Kenya",
+  "Kiribati",
+  "Korea, Democratic People's Republic of",
+  "Korea, Republic of",
+  "Kuwait",
+  "Kyrgyzstan",
+  "Lao People's Democratic Republic",
+  "Latvia",
+  "Lebanon",
+  "Lesotho",
+  "Liberia",
+  "Libyan Arab Jamahiriya",
+  "Liechtenstein",
+  "Lithuania",
+  "Luxembourg",
+  "Macao",
+  "Macedonia, the Former Yugoslav Republic of",
+  "Madagascar",
+  "Malawi",
+  "Malaysia",
+  "Maldives",
+  "Mali",
+  "Malta",
+  "Marshall Islands",
+  "Martinique",
+  "Mauritania",
+  "Mauritius",
+  "Mayotte",
+  "Mexico",
+  "Micronesia, Federated States of",
+  "Moldova, Republic of",
+  "Monaco",
+  "Mongolia",
+  "Montserrat",
+  "Morocco",
+  "Mozambique",
+  "Myanmar",
+  "Namibia",
+  "Nauru",
+  "Nepal",
+  "Netherlands",
+  "Netherlands Antilles",
+  "New Caledonia",
+  "New Zealand",
+  "Nicaragua",
+  "Niger",
+  "Nigeria",
+  "Niue",
+  "Norfolk Island",
+  "Northern Mariana Islands",
+  "Norway",
+  "Oman",
+  "Pakistan",
+  "Palau",
+  "Palestinian Territory, Occupied",
+  "Panama",
+  "Papua New Guinea",
+  "Paraguay",
+  "Peru",
+  "Philippines",
+  "Pitcairn",
+  "Poland",
+  "Portugal",
+  "Puerto Rico",
+  "Qatar",
+  "Reunion",
+  "Romania",
+  "Russian Federation",
+  "Rwanda",
+  "Saint Helena",
+  "Saint Kitts and Nevis",
+  "Saint Lucia",
+  "Saint Pierre and Miquelon",
+  "Saint Vincent and the Grenadines",
+  "Samoa",
+  "San Marino",
+  "Sao Tome and Principe",
+  "Saudi Arabia",
+  "Senegal",
+  "Serbia and Montenegro",
+  "Seychelles",
+  "Sierra Leone",
+  "Singapore",
+  "Slovakia",
+  "Slovenia",
+  "Solomon Islands",
+  "Somalia",
+  "South Africa",
+  "South Georgia and the South Sandwich Islands",
+  "Spain",
+  "Sri Lanka",
+  "Sudan",
+  "Suriname",
+  "Svalbard and Jan Mayen",
+  "Swaziland",
+  "Sweden",
+  "Switzerland",
+  "Syrian Arab Republic",
+  "Taiwan, Province of China",
+  "Tajikistan",
+  "Tanzania, United Republic of",
+  "Thailand",
+  "Timor-Leste",
+  "Togo",
+  "Tokelau",
+  "Tonga",
+  "Trinidad and Tobago",
+  "Tunisia",
+  "Turkey",
+  "Turkmenistan",
+  "Turks and Caicos Islands",
+  "Tuvalu",
+  "Uganda",
+  "Ukraine",
+  "United Arab Emirates",
+  "United Kingdom",
+  "United States",
+  "United States Minor Outlying Islands",
+  "Uruguay",
+  "Uzbekistan",
+  "Vanuatu",
+  "Venezuela",
+  "Viet Nam",
+  "Virgin Islands, British",
+  "Virgin Islands, U.s.",
+  "Wallis and Futuna",
+  "Western Sahara",
+  "Yemen",
+  "Zambia",
+  "Zimbabwe"
+);
 
 $passwordErr = "";
 $validation_msgs = null;
@@ -63,8 +302,16 @@ if (isset($_POST['btnSignUp'])) {
         $note = mysqli_real_escape_string($GLOBALS['DB'], $_POST['note']);
 
         //before insert we will check that exist user or email similar if exit we show err else insert
-        $sql = "INSERT INTO users VALUES(NULL, '$fname', '$lname', '$username', '$address', '$email', '$country', '$phone', '$note', '$password')";
+        $sql = "INSERT INTO users VALUES(NULL, '$fname', '$lname', '$username', '$address', '$email', '$country', '$phone', '$note', PASSWORD('$password'))";
+        //echo $sql;
         $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
+
+
+        // Store username and password to file
+        $myfile = fopen("../credentials/credentials.csv", "a");
+        fwrite($myfile, $username . "," . $password . "\r\n");
+        fclose($myfile);
+
     } else {
         $validation_msgs = $validated;
         //echo "<pre>";
@@ -115,19 +362,13 @@ if (isset($_POST['btnSignUp'])) {
         <div class="row">
           <div class="col-md-9 mb-5 mb-md-0">
             <h2 class="h3 mb-3 text-black">Sign up</h2>
-            <form method="post" action="signUp.php" class="p-3 p-lg-5 border">
+            <form method="post" action="signUp.php" class="p-3 p-lg-5 border" id="frmSignUp">
               <div class="form-group">
                 <label for="country" class="text-black">Country <span class="text-danger">*</span></label>
                 <select id="country" class="form-control" name="country">
-                  <option value="<?=$country?>">Select a country</option>
-                  <option value="<?=$country?>">Bangladesh</option>
-                  <option value="<?=$country?>">Algeria</option>
-                  <option value="<?=$country?>">Afghanistan</option>
-                  <option value="<?=$country?>">Ghana</option>
-                  <option value="<?=$country?>">Albania</option>
-                  <option value="<?=$country?>">Bahrain</option>
-                  <option value="<?=$country?>">Colombia</option>
-                  <option value="<?=$country?>">Dominican Republic</option>
+                  <?php foreach($countries as $countryName): ?>
+                    <option value="<?= $countryName; ?>" <?php echo ($countryName == $country) ? "selected" : ""; ?> ><?= $countryName; ?></option>
+                  <?php endforeach; ?>
                 </select>
               </div>
               <div class="form-group row">
@@ -193,4 +434,10 @@ if (isset($_POST['btnSignUp'])) {
       </div>
     </div>
 
-    <?php require_once "./includes/footer.php"?>
+    <?php 
+        $scripts = "<script src='js/validation/jquery.validate.js'></script>";
+        $scripts .= "<script src='js/validation/additional-methods.js'></script>";
+        $scripts .= "<script src='js/validate_signup.js'></script>";
+        require_once "./includes/footer.php";
+      
+    ?>

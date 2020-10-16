@@ -64,13 +64,20 @@ while ($row = mysqli_fetch_assoc($result)) {
                   <li class="has-children">
                       <a href="#">Settings</a>
                       <ul class="dropdown">
-                      <li><a href="addMedicine.php">Add Medicine</a></li>
-                      <li><a href="signOut.php"><?=$logoutPage?></a></li>
+                        <li><a href="addMedicine.php">Add Medicine</a></li>
+                        <li><a href="signOut.php"><?=$logoutPage?></a></li>
                       </ul>
                   </li>
 
                 <?php } else { ?>
-                  <li><a href="signIn.php"><?=$loginPage?></a></li>
+                  <li class="has-children">
+
+                    <a href="#">Sing In/Up</a>
+                      <ul class="dropdown">
+                        <li><a href="signUp.php">Sign Up</a></li>
+                        <li><a href="signIn.php"><?=$loginPage?></a></li>
+                      </ul>
+                  </li>
                 <?php } ?>
 
 

@@ -114,8 +114,8 @@ if (isset($_POST['btnAddMedicine'])) {
                 <div class="col-md-6">
                   <label for="medicine_category" class="text-black">Medicine Category <span class="text-danger">*</span></label>
                   <select type="text" class="form-control" id="medicine_category" name="medicine_category">
-                    <option value="1" <?php ($medicine_category == 1) ? "selected" : ""; ?> >Common Medicine (دارو های رایج)</option>
-                    <option value="2" <?php ($medicine_category == 2) ? "selected" : ""; ?>>Herbal Medicine (دارو های گیاهی)</option>
+                    <option value="1" <?php echo ($medicine_category == 1) ? "selected" : ""; ?> >Common Medicine (دارو های رایج)</option>
+                    <option value="2" <?php echo ($medicine_category == 2) ? "selected" : ""; ?>>Herbal Medicine (دارو های گیاهی)</option>
                   </select>
                 </div>
               </div>
