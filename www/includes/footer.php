@@ -65,7 +65,7 @@ if (isset($scripts)) {
       const bookmarkLink = document.querySelector('.buy-now');
       //console.log(bookmarkLink.textContent.indexOf("Add"));
       // console.log(bookmarkLink.textContent);
-      if( bookmarkLink.textContent.indexOf("Add") !== -1 ) {
+      if( bookmarkLink.textContent.indexOf("Add") !== -1 || bookmarkLink.textContent.indexOf("اضافه") !== -1) {
         Store.addFavorite(origin, id);
         bookmarkLink.innerText = "Remove Bookmark";
       } else {

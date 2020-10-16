@@ -9,7 +9,9 @@ $bookMarksPage = "انتخاب شده";
 $contactPage = "تماس با ما";
 $lang = "زبان";
 $loginPage = "ورود";
+$logoutPage = "خروج";
 $add = "اضافه کردن به لیست";
+$remove = "حذف کردن از لیست";
 $btn = " مطالب بیشتر ";
 $about = "نام پروژه: اطلاعات داروها (Medicines Info)
 معرفی مختصر پروژه:

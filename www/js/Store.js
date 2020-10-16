@@ -9,7 +9,7 @@ class Store {
         favorites = JSON.parse(localStorage.getItem(origin));
         }
 
-        document.cookie = "favorites=" + favorites.join(", ");
+        document.cookie = origin + "=" + favorites.join(",");
         return favorites;
     }
 

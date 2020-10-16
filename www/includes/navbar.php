@@ -1,5 +1,4 @@
 <?php
-
 require_once "../helpers/common.php";
 require_once "../libraries/connection.php";
 $sql = "SELECT * FROM categories";
@@ -46,7 +45,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                   <a href="firstaid.php"><?=$firstaidPage?></a>
                   <ul class="dropdown">
                   <li><a href="firstaid.php"><?=$firstaidPage?></a></li>
-                  <li><a href="bookmarks.php?origin=firstAids">Bookmarks</a></li>
+                  <li><a href="bookmarks.php?origin=firstaid">Bookmarks</a></li>
                   </ul>
                 </li>
                 <li><a href="about.php"><?=$aboutPage?></a></li>
@@ -59,15 +58,24 @@ while ($row = mysqli_fetch_assoc($result)) {
                   </ul>
                 </li>
 
+
+                <?php if( isset($_SESSION['login_authority'])  && $_SESSION['login_authority'] == "success" ) { ?>
+              
+                  <li class="has-children">
+                      <a href="#">Settings</a>
+                      <ul class="dropdown">
+                      <li><a href="addMedicine.php">Add Medicine</a></li>
+                      <li><a href="signOut.php"><?=$logoutPage?></a></li>
+                      </ul>
+                  </li>
+
+                <?php } else { ?>
+                  <li><a href="signIn.php"><?=$loginPage?></a></li>
+                <?php } ?>
+
+
               </ul>
             </nav>
-          </div>
-          <div class="icons">
-            <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-            <a href="signIn.php">
-              <span class="number"><?=$loginPage?></span>
-            </a>
-
           </div>
 
         </div>

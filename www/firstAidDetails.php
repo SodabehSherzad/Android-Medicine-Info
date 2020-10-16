@@ -18,26 +18,28 @@ if ($row = mysqli_fetch_row($result)) {
     $logo = clean_data($row[4]);
     $image = clean_data($row[3]);
 
-    if (!file_exists("images/firstAid/$image.webp")) {
-        $image = "default";
+    if (!file_exists("images/firstAid/$image")) {
+        $image = "default.webp";
     }
 
     $check = ($language == 'en')? 'inline-block' : 'none';
-    $origin = "firstAids";
+    $origin = "firstaid";
+    $ids =  explode(",", $_COOKIE[$origin]);
+    $add_or_remove_text = ( in_array($id, $ids) ) ? $remove :  $add;
     $firstaidDetails .= "<div class='row'>
             <div class='col-md-5 mr-auto'>
               <div class='border text-center'>
-                <img src='images/firstAid/$image.webp' alt='Image'  class='img-fluid p-5'>
+                <img src='images/firstAid/$image' alt='Image'  class='img-fluid p-5'>
               </div>
               <div class='border text-center'>
-                <img src='images/firstAid/$logo.webp' alt='Image'  class='img-fluid p-5'>
+                <img src='images/firstAid/$logo' alt='Image'  class='img-fluid p-5'>
               </div>
             </div>
             <div class='col-md-6'>
               <h2 class='text-black'>$name</h2>
               <p>$details</p>
 
-              <p><a href='#' class='buy-now btn btn-sm height-auto px-4 py-3 btn-primary' onclick='medicinesFavorite(\"$origin\", $id)'>$add</a></p>
+              <p><a href='#' class='buy-now btn btn-sm height-auto px-4 py-3 btn-primary' onclick='medicinesFavorite(\"$origin\", $id)'>$add_or_remove_text</a></p>
               <p style='display: $check'><a href='#' onclick=\"textToSpeech('$details2')\" class='btn btn-sm btn-primary'>Play Voice</a></p>
               <p style='display: $check'><a href='#' onclick=\"stopSpeech()\" class='btn btn-sm btn-primary'>Stop Voice</a></p>
 

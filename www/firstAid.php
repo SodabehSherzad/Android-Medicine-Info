@@ -23,12 +23,12 @@ while ($row = mysqli_fetch_assoc($result)) {
     $id = clean_data($row['id']);
     $image = clean_data($row['image']);
 
-    if (!file_exists("images/firstAid/$image.webp")) {
-        $image = "default";
+    if (!file_exists("images/firstAid/$image")) {
+        $image = "default.webp";
     }
 
     $medicines .= "<div class='col-sm-6 col-lg-4 text-center item mb-4'>
-      <a href='firstAidDetails.php?id=$id'> <img src='images/firstAid/$image.webp' alt='$name' title='$name' width='350' height ='250'></a>
+      <a href='firstAidDetails.php?id=$id'> <img src='images/firstAid/$image' alt='$name' title='$name' width='350' height ='250'></a>
       <h4 class='text-dark'><a href='firstAidDetails.php?id=$id'>$name</a></h4>
     </div>";
 }

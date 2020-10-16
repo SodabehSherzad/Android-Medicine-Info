@@ -1,11 +1,4 @@
 <?php 
-session_start();
-session_regenerate_id();
-
-if(!isset($_SESSION["login_authority"])){
-
-header("location:signIn.php");
-}
 require_once "../helpers/common.php";
 require_once "../lang/$language.php";
 require_once "../libraries/connection.php";

@@ -1,11 +1,10 @@
 <?php
-session_start();
 
 require_once "../libraries/connection.php";
 $title = "Login";
 require_once "./includes/header.php";
 
-$errors = ["username" => "", "password" => "", "errorFind" => "" ];
+$errors = ["username" => "", "password" => "", "errorFind" => ""];
 $username = "";
 $password = "";
 if (isset($_POST['btnLogin'])) {
@@ -28,46 +27,37 @@ if (isset($_POST['btnLogin'])) {
         $errors["password"] = "Password must be between 3 and 55 characters!";
     }
 
-    if ( empty($errors["password"]) && empty($errors["username"]) ) {
-      $username = mysqli_real_escape_string($GLOBALS['DB'], $username);
-      $password = mysqli_real_escape_string($GLOBALS['DB'], $password);
+    if (empty($errors["password"]) && empty($errors["username"])) {
+        $username = mysqli_real_escape_string($GLOBALS['DB'], $username);
+        $password = mysqli_real_escape_string($GLOBALS['DB'], $password);
 
-    if(isset($_POST["remember"])){
+        if (isset($_POST["remember"])) {
+            setcookie("username", $uname, time() + 3600);
+            setcookie("password", $pwd, time() + 3600);
+        } else {
+            setcookie("username", $uname, time() - 3600);
+            setcookie("password", $pwd, time() - 3600);
+        }
 
-      setcookie("username",$uname,time()+3600);
-      setcookie("password",$pwd,time()+3600);
-      
-      }else{
-      
-        setcookie("username",$uname,time()-3600);
-        setcookie("password",$pwd,time()-3600);
-      }
-        
-        
-      $_SESSION["login_authority"]="success";
-      $sql = "SELECT * FROM users WHERE `user_name` = '$username' AND `password` = PASSWORD('$password') LIMIT 1";
-      // echo "<h1>$sql</h1>";
-      $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
-      $row = mysqli_fetch_assoc($result);
-      if($row){
-        echo "<label><span class='text-success'>You successfully Login!!!</span></label>";
-        header("location: index.php");
-      }else{
-        $errors["errorFind"] = "The password or Username do not exsit!";
-        // header("location: signUp.php");
-      }
-      // $row = mysqli_fetch_assoc($result);
-      // echo "<pre>".print_r($row)."</pre>";
+        $sql = "SELECT * FROM users WHERE `user_name` = '$username' AND `password` = PASSWORD('$password') LIMIT 1";
+        // echo "<h1>$sql</h1>";
+        $result = mysqli_query($GLOBALS['DB'], $sql) or die(mysqli_error($GLOBALS['DB']));
+        $row = mysqli_fetch_assoc($result);
+        if ($row) {
+            echo "<label><span class='text-success'>You successfully Login!!!</span></label>";
+            session_start();
+            $_SESSION["login_authority"] = "success";
+            header("location: index.php");
+        } else {
+            $errors["errorFind"] = "The password or Username do not exsit!";
+            // header("location: signUp.php");
+        }
+        // $row = mysqli_fetch_assoc($result);
+        // echo "<pre>".print_r($row)."</pre>";
     }
 
 }
 
-if(isset($_GET["logout"])){
-  $_SESSION = array();
-  session_unset();
-  session_destroy();
-  $_SESSION = [];
-}
 ?>
 <body>
 
@@ -95,7 +85,7 @@ if(isset($_GET["logout"])){
           </div>
         </div>
         <div class="row">
-        
+
         <div class="col-md-12">
             <h2 class="h3 mb-5 text-black">Sign in Page</h2>
           </div>
@@ -106,20 +96,20 @@ if(isset($_GET["logout"])){
                 <div class="form-group row">
                   <div class="col-md-6">
                     <label for="username" class="text-black">Username <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="username" name="username" value="<?= $username; ?>">
-                    <label for="username" class="text-black"><span class="text-danger"><?= $errors["username"]?></span></label>
+                    <input type="text" class="form-control" id="username" name="username" value="<?=$username;?>">
+                    <label for="username" class="text-black"><span class="text-danger"><?=$errors["username"]?></span></label>
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-md-6">
                     <label for="password" class="text-black">Password <span class="text-danger">*</span></label>
-                    <input type="password" class="form-control" id="password" name="password" value="<?= $password; ?>">
-                    <label for="password" class="text-black"><span class="text-danger"><?= $errors["password"]?></span></label>
+                    <input type="password" class="form-control" id="password" name="password" value="<?=$password;?>">
+                    <label for="password" class="text-black"><span class="text-danger"><?=$errors["password"]?></span></label>
                   </div>
                 </div>
                 <div >
                     <label class="checkbox login-checkbox">
-										  <input type="checkbox" <?php if(isset($_COOKIE["username"])){ echo "checked='checked'"; }?> class="i-checks" name="remember"> 
+										  <input type="checkbox" <?php if (isset($_COOKIE["username"])) {echo "checked='checked'";}?> class="i-checks" name="remember">
                     Remember me </label>
                 </div>
                 <div class="form-group row">
@@ -129,7 +119,7 @@ if(isset($_GET["logout"])){
                 </div>
                 <div class="form-group row">
                   <div class="col-lg-6">
-                    <label><span class='text-danger'><?= $errors['errorFind']?></span></label>
+                    <label><span class='text-danger'><?=$errors['errorFind']?></span></label>
                   </div>
                 </div>
               </div>
