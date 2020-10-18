@@ -19,4 +19,6 @@ $contact = "Contact Info";
 $contactInfo = "";
 $addMedicine = "Add Medicine";
 $addFirstAid = "Add First Aid";
+$signInUp = "Sing In/Up";
+$signUp = "Sign Up";
 $setting = "Settings";

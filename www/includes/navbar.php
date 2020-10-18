@@ -38,7 +38,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <li class="has-children"><a href="#"><?=$medicinePage;?></a>
                   <ul class="dropdown">
                     <?=$categories;?>
-                    <li><a href="bookmarks.php?origin=medicines">Bookmarks</a></li>
+                    <li><a href="bookmarks.php?origin=medicines"><?=$bookMarksPage?></a></li>
                   </ul>
                 </li>
                 <li class="has-children">
@@ -73,9 +73,9 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <?php } else { ?>
                   <li class="has-children">
 
-                    <a href="#">Sing In/Up</a>
+                    <a href="#"><?= $signInUp?></a>
                       <ul class="dropdown">
-                        <li><a href="signUp.php">Sign Up</a></li>
+                        <li><a href="signUp.php"><?= $signUp ?></a></li>
                         <li><a href="signIn.php"><?=$loginPage?></a></li>
                       </ul>
                   </li>

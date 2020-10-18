@@ -24,6 +24,8 @@ $contact = "ارتباط با ما";
 $contactInfo = "";
 $addMedicine = "اضافه کردن دارو";
 $addFirstAid = "اضافه کردن کمک های اولیه";
+$signInUp = "ورود یا راجستر";
+$signUp = "راجستر";
 $setting = "تنظیمات";
 
 
