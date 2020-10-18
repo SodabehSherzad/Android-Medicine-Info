@@ -17,3 +17,6 @@ $about = "This program helps users to be fully aware of drugs, their use and how
 <br> Develope by Sodabeh Sherzad";
 $contact = "Contact Info";
 $contactInfo = "";
+$addMedicine = "Add Medicine";
+$addFirstAid = "Add First Aid";
+$setting = "Settings";

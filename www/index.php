@@ -12,12 +12,12 @@ function read_data($result){
     $usage = clean_data($row['usage']);
     $image = clean_data($row['image']);
   
-    if (!file_exists("images/medicine/$image.webp")) {
-        $image = "image";
+    if (!file_exists("images/medicine/$image")) {
+        $image = "image.webp";
     }
   
     $medicines .= " <div class='text-center item mb-4'>
-                    <a href='medicine.php'> <img src='images/medicine/$image.webp' alt='Image' width='70' height='200'></a>
+                    <a href='medicine.php'> <img src='images/medicine/$image' alt='Image' width='70' height='200'></a>
                     <h3 class='text-dark'><a href='medicine.php'>$name</a></h3>
                     <p class='price'>$usage</p>
                   </div>";
@@ -177,12 +177,12 @@ require_once("./includes/header.php")
                   $id = clean_data($row['id']);
                   $image = clean_data($row['image']);
               
-                  if (!file_exists("images/firstAid/$image.webp")) {
-                      $image = "default";
+                  if (!file_exists("images/firstAid/$image")) {
+                      $image = "default.webp";
                   }
               
                   $medicines .= " <div class='text-center item mb-4'>
-                    <a href='firstAid.php'> <img src='images/firstAid/$image.webp' alt='Image' width='100' height='200'></a>
+                    <a href='firstAid.php'> <img src='images/firstAid/$image' alt='Image' width='100' height='200'></a>
                     <h3 class='text-dark'><a href='firstAid.php'>$name</a></h3>
                   </div>";
               }

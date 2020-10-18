@@ -45,7 +45,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                   <a href="firstaid.php"><?=$firstaidPage?></a>
                   <ul class="dropdown">
                   <li><a href="firstaid.php"><?=$firstaidPage?></a></li>
-                  <li><a href="bookmarks.php?origin=firstaid">Bookmarks</a></li>
+                  <li><a href="bookmarks.php?origin=firstaid"><?=$bookMarksPage?></a></li>
                   </ul>
                 </li>
                 <li><a href="about.php"><?=$aboutPage?></a></li>
@@ -62,9 +62,10 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <?php if( isset($_SESSION['login_authority'])  && $_SESSION['login_authority'] == "success" ) { ?>
               
                   <li class="has-children">
-                      <a href="#">Settings</a>
+                      <a href="#"><?=$setting?></a>
                       <ul class="dropdown">
-                        <li><a href="addMedicine.php">Add Medicine</a></li>
+                        <li><a href="addMedicine.php"><?=$addMedicine?></a></li>
+                        <li><a href="addFirstAid.php"><?=$addFirstAid?></a></li>
                         <li><a href="signOut.php"><?=$logoutPage?></a></li>
                       </ul>
                   </li>

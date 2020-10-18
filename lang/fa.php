@@ -22,4 +22,8 @@ $about = "نام پروژه: اطلاعات داروها (Medicines Info)
 سودابه شیرزاد";
 $contact = "ارتباط با ما";
 $contactInfo = "";
+$addMedicine = "اضافه کردن دارو";
+$addFirstAid = "اضافه کردن کمک های اولیه";
+$setting = "تنظیمات";
+
 
